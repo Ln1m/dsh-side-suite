@@ -1,6 +1,6 @@
 {
     "name": "dsh-extensions-panel",
-    "version": "0.1.2",
+    "version": "0.1.3",
     "description": "DSH 功能栏插件：在左栏「功能」Tab（sidebar.extensions）内提供虚拟显示器开关卡片。",
     "type": "module",
     "main": "lib/index.js",

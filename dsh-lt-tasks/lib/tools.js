@@ -211,7 +211,7 @@ const advanceTask = defineTool({
       await store.setStatus(root, t.id, "active");
       meta = await store.readMeta(root, t.id);
     }
-    const wsDir = meta.workspacePath || join(root, t.id);
+    const wsDir = store.taskWorkspaceDir(meta);
     const [stateText, frozenText, goalText, notesText, logText, stats] = await Promise.all([
       store.readDoc(root, t.id, "state").catch(() => ""),
       store.readDoc(root, t.id, "frozen").catch(() => ""),
@@ -323,7 +323,7 @@ const saveProgress = defineTool({
     const root = store.resolveTasksRoot();
     const t = await findTask(root, args.name);
     const curMeta = await store.readMeta(root, t.id);
-    const wsDir = curMeta.workspacePath || join(root, t.id);
+    const wsDir = store.taskWorkspaceDir(curMeta);
     const doc = (name) => join(root, t.id, name + ".md");
 
     // 冻结冲突检查（非阻断）：内容里出现冻结触发词就告警，提醒别再重复确认/别擅自改。

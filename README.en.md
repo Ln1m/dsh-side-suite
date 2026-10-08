@@ -20,7 +20,8 @@ Left column: file tree, file opener, tools tab, LAN services, long-running tasks
 
 | Release | DSH line | Notes |
 |---|---|---|
-| `v0.1.2` | 0.1.7 | Features developed on the local DSH 0.1.7 line; this update |
+| `v0.1.3` | 0.1.7 | This sync: right-column two-axis docking, plus this batch of skeleton and column changes |
+| `v0.1.2` | 0.1.7 | Previous release of the 0.1.7 line |
 | `v0.1.0` | 0.1.6 | Last release of the DSH 0.1.6 line; stays usable, no further updates |
 
 ## Install
@@ -39,11 +40,11 @@ Or install the whole family on Windows PowerShell:
 Install straight from the release, no clone needed:
 
 ```sh
-dsh plugin --profile web add "https://github.com/Ln1m/dsh-side-suite/releases/download/v0.1.2/dsh-files-tree-0.1.2.tgz"
-dsh plugin --profile web add "https://github.com/Ln1m/dsh-side-suite/releases/download/v0.1.2/dsh-files-open-0.1.2.tgz"
-dsh plugin --profile web add "https://github.com/Ln1m/dsh-side-suite/releases/download/v0.1.2/dsh-extensions-panel-0.1.2.tgz"
-dsh plugin --profile web add "https://github.com/Ln1m/dsh-side-suite/releases/download/v0.1.2/dsh-lan-services-0.1.2.tgz"
-dsh plugin --profile web add "https://github.com/Ln1m/dsh-side-suite/releases/download/v0.1.2/dsh-lt-tasks-0.7.1.tgz"
+dsh plugin --profile web add "https://github.com/Ln1m/dsh-side-suite/releases/download/v0.1.3/dsh-files-tree-0.1.3.tgz"
+dsh plugin --profile web add "https://github.com/Ln1m/dsh-side-suite/releases/download/v0.1.3/dsh-files-open-0.1.3.tgz"
+dsh plugin --profile web add "https://github.com/Ln1m/dsh-side-suite/releases/download/v0.1.3/dsh-extensions-panel-0.1.3.tgz"
+dsh plugin --profile web add "https://github.com/Ln1m/dsh-side-suite/releases/download/v0.1.3/dsh-lan-services-0.1.2.tgz"
+dsh plugin --profile web add "https://github.com/Ln1m/dsh-side-suite/releases/download/v0.1.3/dsh-lt-tasks-0.7.2.tgz"
 ```
 
 If the install fails with `UNABLE_TO_VERIFY_LEAF_SIGNATURE` (a TLS-intercepting proxy; Node does not read the system CA store by default), run `$env:NODE_OPTIONS='--use-system-ca'` first.

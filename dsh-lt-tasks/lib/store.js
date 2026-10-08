@@ -220,6 +220,17 @@ export function resolveWorkspaceRoot() {
   return process.env.DSH_LT_WS_ROOT || join(homedir(), "Desktop", "DSHlongtasks");
 }
 
+/**
+ * 产出工作区（**写死口径**，2026-10-05 用户要求）：只认 meta.workspacePath，且必须落在工作区根之下。
+ * 取不到就返回空串——调用方必须跳过，**绝不退回任务文档目录**（`<任务库>/<id>`）。
+ * 这样备份（backups/vN）、参考资料（refs/）、索引一律只能落在工作区里。
+ */
+export function taskWorkspaceDir(meta) {
+  const ws = String((meta && meta.workspacePath) || "");
+  if (!ws) return "";
+  return ws.startsWith(resolveWorkspaceRoot()) ? ws : "";
+}
+
 /** 产出文件夹名 lt-task-NNN-<topic>：NNN 为工作区根下已有序号 + 1（与会话文件夹同规则，独立编号）。 */
 export async function nextWsFolder(wsRoot, topic) {
   await mkdir(wsRoot, { recursive: true });
@@ -479,7 +490,7 @@ async function writeRegistered(root, id, list) {
 /** 重建 notes.md 的参考资料小节：只重写自动区，手写区原样保留（其余小节不动）。 */
 export async function rebuildRefs(root, id) {
   const meta = await readMeta(root, id).catch(() => ({}));
-  const wsDir = meta.workspacePath || "";
+  const wsDir = taskWorkspaceDir(meta);
   const refs = wsDir ? join(wsDir, "refs") : "";
   const cur = await readDoc(root, id, "notes").catch(() => DOC_TEMPLATES.notes);
   const manual = refsManualOf(cur);
@@ -511,7 +522,7 @@ export async function rebuildRefs(root, id) {
  */
 export async function addRefs(root, id, paths, note = "") {
   const meta = await readMeta(root, id).catch(() => ({}));
-  const wsDir = meta.workspacePath || join(root, id);
+  const wsDir = taskWorkspaceDir(meta);
   await mkdir(wsDir, { recursive: true });
   const refs = join(wsDir, "refs");
   await mkdir(refs, { recursive: true });
@@ -574,7 +585,7 @@ export async function addRefs(root, id, paths, note = "") {
 /** 列出 refs/ 实际文件与仅登记清单（只看清单，不吐正文）。 */
 export async function listRefs(root, id) {
   const meta = await readMeta(root, id).catch(() => ({}));
-  const wsDir = meta.workspacePath || join(root, id);
+  const wsDir = taskWorkspaceDir(meta);
   const refs = join(wsDir, "refs");
   const files = [];
   async function walk(d, rel) {
@@ -607,7 +618,7 @@ export async function listRefs(root, id) {
 /** 重建完整工作流目录 index.md：产出文件（忽略 backups/编译产物）+ 折叠摘要 + 文档内部目录。 */
 export async function rebuildIndex(root, id) {
   const meta = await readMeta(root, id).catch(() => ({}));
-  const wsDir = meta.workspacePath || join(root, id);
+  const wsDir = taskWorkspaceDir(meta);
   const lines = ["# 完整工作流目录", "", "产出工作区：" + wsDir, ""];
   const { files, skippedDirs } = await listFilesRecursive(wsDir);
   if (files.length === 0) lines.push("（工作区暂无文件）");
@@ -624,7 +635,7 @@ export async function rebuildIndex(root, id) {
 /** 建产出工作区：桌面侧 wsDir 已由 createTask 创建，此处补参考资料并重建索引。 */
 export async function setupWorkspace(root, id, refPath) {
   const meta = await readMeta(root, id).catch(() => ({}));
-  const wsDir = meta.workspacePath || join(root, id);
+  const wsDir = taskWorkspaceDir(meta);
   await mkdir(wsDir, { recursive: true });
   const paths = refPath ? (Array.isArray(refPath) ? refPath : [refPath]) : [];
   if (paths.length) await addRefs(root, id, paths, "");
@@ -744,7 +755,7 @@ function externalRel(abs) {
 export async function snapshotVersion(root, id, version, opts = {}) {
   try {
     const meta = await readMeta(root, id).catch(() => ({}));
-    const wsDir = meta.workspacePath || "";
+    const wsDir = taskWorkspaceDir(meta);
     if (!wsDir) return { ok: false, reason: "no workspacePath" };
     const force = String(process.env.DSH_LT_SNAPSHOT || "").toLowerCase() === "full";
     const verDir = join(wsDir, "backups", "v" + version);

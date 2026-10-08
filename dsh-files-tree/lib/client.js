@@ -129,58 +129,58 @@ function vkHomeDirsSync() {
 		}
 		const CSS = [
 			// ── 滚动条：细、半透明、贴主题；标签条隐藏但可滚 ─────────────
-			".vk_tree,.vk_viewer,.vk_editorInput{scrollbar-width:thin;scrollbar-color:var(--dsw-alias-scrollbar-bg-l1) transparent}",
+			"body{--vk-accent:var(--dsw-alias-accent,var(--dsw-alias-state-business-primary));--vk-accent-ring:color-mix(in srgb,var(--vk-accent) 22%,transparent);--vk-accent-soft:color-mix(in srgb,var(--vk-accent) 12%,transparent);--vk-ok:#73c991;--vk-danger:var(--dsw-alias-state-error-primary,#f14c4c);--vk-danger-soft:color-mix(in srgb,var(--vk-danger) 35%,transparent);--vk-fg:var(--dsw-alias-label-primary);--vk-fg2:var(--dsw-alias-label-secondary);--vk-fg3:var(--dsw-alias-label-tertiary);--vk-line:var(--dsw-alias-border-l1);--vk-line2:var(--dsw-alias-border-l2);--vk-bg-hover:var(--dsw-alias-interactive-bg-hover);--vk-r-xs:4px;--vk-r-sm:6px;--vk-r-md:8px;--vk-r-lg:12px;--vk-r-pill:999px;--vk-fs-xs:11px;--vk-fs-sm:12px;--vk-fs-md:13px;--vk-fs-lg:14px;--vk-dur:.12s;--vk-ease:cubic-bezier(.2,.7,.3,1);--vk-fade:background-color var(--vk-dur) var(--vk-ease),color var(--vk-dur) var(--vk-ease),border-color var(--vk-dur) var(--vk-ease),opacity var(--vk-dur) var(--vk-ease);--vk-ring:0 0 0 2px var(--vk-accent-ring);}.vk_tree,.vk_viewer,.vk_editorInput{scrollbar-width:thin;scrollbar-color:var(--dsw-alias-scrollbar-bg-l1) transparent}",
 			".vk_tree::-webkit-scrollbar,.vk_viewer::-webkit-scrollbar,.vk_editorInput::-webkit-scrollbar{width:10px;height:10px}",
-			".vk_tree::-webkit-scrollbar-thumb,.vk_viewer::-webkit-scrollbar-thumb,.vk_editorInput::-webkit-scrollbar-thumb{background:var(--dsw-alias-scrollbar-bg-l1);border:3px solid transparent;border-radius:6px;background-clip:padding-box;min-height:40px}",
+			".vk_tree::-webkit-scrollbar-thumb,.vk_viewer::-webkit-scrollbar-thumb,.vk_editorInput::-webkit-scrollbar-thumb{background:var(--dsw-alias-scrollbar-bg-l1);border:3px solid transparent;border-radius:var(--vk-r-sm);background-clip:padding-box;min-height:40px}",
 			".vk_tree::-webkit-scrollbar-thumb:hover,.vk_viewer::-webkit-scrollbar-thumb:hover,.vk_editorInput::-webkit-scrollbar-thumb:hover{background:var(--dsw-alias-scrollbar-hover-l1);border:3px solid transparent;background-clip:padding-box}",
 			".vk_tree::-webkit-scrollbar-track,.vk_viewer::-webkit-scrollbar-track,.vk_editorInput::-webkit-scrollbar-track,.vk_tree::-webkit-scrollbar-corner,.vk_viewer::-webkit-scrollbar-corner,.vk_editorInput::-webkit-scrollbar-corner{background:transparent}",
 			// ── 面板 Tab 栏（左：文件/会话；右：对话/详情） ──────────────
-			".vk_tabBar{display:flex;align-items:stretch;flex:none;min-width:0;border-bottom:1px solid var(--dsw-alias-border-l1);background:var(--dsw-specific-sidebar-fill);container-type:inline-size}@container (width<=560px){.vk_reconnectHint{max-width:8em;overflow:hidden;text-overflow:ellipsis}.vk_modeBtn{padding:4px 9px;margin:0 6px 0 2px;font-size:11px}}@container (width<=460px){.vk_reconnectHint{display:none}}@container (width<=400px){.vk_tabBtn{padding:7px 8px}.vk_reloadBtn{padding:4px 8px;margin-left:4px}}",
+			".vk_tabBar{display:flex;align-items:stretch;flex:none;min-width:0;border-bottom:1px solid var(--dsw-alias-border-l1);background:var(--dsw-specific-sidebar-fill);container-type:inline-size}@container (width<=560px){.vk_reconnectHint{max-width:8em;overflow:hidden;text-overflow:ellipsis}.vk_modeBtn{padding:4px 9px;margin:0 6px 0 2px;font-size:var(--vk-fs-xs)}}@container (width<=460px){.vk_reconnectHint{display:none}}@container (width<=400px){.vk_tabBtn{padding:7px 8px}.vk_reloadBtn{padding:4px 8px;margin-left:4px}}",
 			// ── 文件树头部与工具按钮 ───────────────────────────────────
 			".vk_treeWrap{flex:1;min-height:0;display:flex;flex-direction:column;overflow:hidden}",
 			".vk_treeHead{display:flex;align-items:center;gap:2px;flex:none;padding:7px 6px 7px 10px;border-bottom:1px solid var(--dsw-alias-border-l1)}",
-			".vk_treeTitle{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--dsw-alias-label-secondary)}",
-			".vk_treeBtn{appearance:none;border:none;background:none;cursor:pointer;width:24px;height:24px;padding:0;border-radius:6px;font-size:13px;line-height:1;color:var(--dsw-alias-label-secondary);display:flex;align-items:center;justify-content:center;flex:none;transition:background-color .12s,color .12s}",
+			".vk_treeTitle{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:var(--vk-fs-xs);font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--dsw-alias-label-secondary)}",
+			".vk_treeBtn{appearance:none;border:none;background:none;cursor:pointer;width:24px;height:24px;padding:0;border-radius:var(--vk-r-sm);font-size:var(--vk-fs-md);line-height:1;color:var(--dsw-alias-label-secondary);display:flex;align-items:center;justify-content:center;flex:none;transition:background-color .12s,color .12s}",
 			".vk_treeBtn:hover{background:var(--dsw-alias-interactive-bg-hover);color:var(--dsw-alias-label-primary)}",
 			".vk_treeBtnActive{background:var(--vk-accent-soft);color:var(--vk-accent)}",
 			".vk_treeBtn:disabled{opacity:.35;cursor:not-allowed}",
 			".vk_treeBtn:disabled:hover{background:none;color:var(--dsw-alias-label-secondary)}",
 			// ── 表单（打开文件夹/新建/重命名/搜索） ─────────────────────
 			".vk_pickForm{padding:8px;display:flex;flex-direction:column;gap:6px;border-bottom:1px solid var(--dsw-alias-border-l1)}",
-			".vk_pickInput{box-sizing:border-box;width:100%;background:var(--dsw-specific-input-major);border:1px solid var(--dsw-alias-border-l2);border-radius:6px;color:var(--dsw-alias-label-primary);font-size:12px;padding:6px 9px;outline:none;font-family:inherit;transition:border-color .12s,box-shadow .12s}",
+			".vk_pickInput{box-sizing:border-box;width:100%;background:var(--dsw-specific-input-major);border:1px solid var(--dsw-alias-border-l2);border-radius:var(--vk-r-sm);color:var(--dsw-alias-label-primary);font-size:var(--vk-fs-sm);padding:6px 9px;outline:none;font-family:inherit;transition:border-color .12s,box-shadow .12s}",
 			".vk_pickInput:hover{border-color:var(--dsw-alias-border-l3)}",
 			".vk_pickInput:focus{border-color:var(--vk-accent);box-shadow:0 0 0 2px var(--vk-accent-ring)}",
 			".vk_pickInput::placeholder{color:var(--dsw-alias-label-tertiary)}",
 			".vk_row .vk_pickInput{padding:3px 8px}",
-			".vk_pickErr{font-size:11px;line-height:15px;color:var(--dsw-alias-state-error-primary);padding:0 2px}",
-			".vk_pickRow{display:flex;gap:6px;justify-content:flex-end;min-width:0;container-type:inline-size}@container (width<=360px){.vk_pickBtn{padding:4px 8px;font-size:11px}}",
-			".vk_pickBtn{appearance:none;cursor:pointer;border:1px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-bg-base);color:var(--dsw-alias-label-primary);border-radius:6px;font-size:12px;padding:4px 12px;font-family:inherit;transition:background-color .12s,border-color .12s,color .12s}",
+			".vk_pickErr{font-size:var(--vk-fs-xs);line-height:15px;color:var(--dsw-alias-state-error-primary);padding:0 2px}",
+			".vk_pickRow{display:flex;gap:6px;justify-content:flex-end;min-width:0;container-type:inline-size}@container (width<=360px){.vk_pickBtn{padding:4px 8px;font-size:var(--vk-fs-xs)}}",
+			".vk_pickBtn{appearance:none;cursor:pointer;border:1px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-bg-base);color:var(--dsw-alias-label-primary);border-radius:var(--vk-r-sm);font-size:var(--vk-fs-sm);padding:4px 12px;font-family:inherit;transition:background-color .12s,border-color .12s,color .12s}",
 			".vk_pickBtn:hover{background:var(--dsw-alias-interactive-bg-hover);border-color:var(--dsw-alias-border-l3)}",
 			// 模式切换胶囊（accent 实心；右栏「全屏对话/分栏视图」与「新建文件/文件夹」切换复用。
 			// 位置须在 .vk_pickBtn/.vk_tabBtn 之后：同级特异性下靠后者覆盖底色与圆角）
-			".vk_modeBtn{align-self:center;background:var(--vk-accent);color:#fff;border-radius:999px;padding:4px 13px;margin:0 8px 0 4px;border-bottom:none;font-weight:600;line-height:16px;letter-spacing:.2px;box-shadow:0 1px 3px rgba(0,0,0,.18);transition:filter .12s,box-shadow .12s,color .12s,background-color .12s}",
+			".vk_modeBtn{align-self:center;background:var(--vk-accent);color:#fff;border-radius:var(--vk-r-pill);padding:4px 13px;margin:0 8px 0 4px;border-bottom:none;font-weight:600;line-height:16px;letter-spacing:.2px;box-shadow:0 1px 3px rgba(0,0,0,.18);transition:filter .12s,box-shadow .12s,color .12s,background-color .12s}",
 			".vk_modeBtn:hover{color:#fff;background:var(--vk-accent);filter:brightness(1.1);box-shadow:0 2px 8px var(--vk-accent-ring)}",
 			// ── 文件树行：缩进参考线 / 图标 / 悬停与选中层次 ─────────────
 			".vk_tree{flex:1;min-height:0;overflow:auto;padding:4px 0}",
-			".vk_row{position:relative;display:flex;align-items:center;gap:5px;padding:2px 8px 2px 4px;cursor:pointer;font-size:13px;line-height:22px;white-space:nowrap;user-select:none;transition:background-color .1s}",
+			".vk_row{position:relative;display:flex;align-items:center;gap:5px;padding:2px 8px 2px 4px;cursor:pointer;font-size:var(--vk-fs-md);line-height:22px;white-space:nowrap;user-select:none;transition:background-color .1s}",
 			".vk_row:hover{background:var(--dsw-alias-interactive-bg-hover)}",
 			".vk_rowActive{background:var(--vk-accent-soft)}",
 			// 选中态（第三轮 B 项）：单击 = 选中，底纹 + 一圈 accent 描边；正在拓展栏打开的那一行
 			// （vk_rowActive）保留 accent 实底，两者同时存在时以「已打开」为准。
 			".vk_rowSelected{background:var(--dsw-alias-interactive-bg-hover);box-shadow:inset 0 0 0 1px var(--vk-accent-ring)}",
 			".vk_rowSelected.vk_rowActive{background:var(--vk-accent-soft)}",
-			".vk_openErr{padding:6px 10px;font-size:11px;line-height:1.5;color:var(--dsw-alias-label-error,#d9534f);background:var(--vk-accent-soft);border-bottom:0.5px solid var(--dsw-alias-border-l3);flex:none;word-break:break-all}",
+			".vk_openErr{padding:6px 10px;font-size:var(--vk-fs-xs);line-height:1.5;color:var(--dsw-alias-label-error,#d9534f);background:var(--vk-accent-soft);border-bottom:0.5px solid var(--dsw-alias-border-l3);flex:none;word-break:break-all}",
 			".vk_rowActive:hover{background:var(--vk-accent-ring)}",
 			".vk_rowHidden{opacity:.55}",
 			".vk_guide{position:absolute;top:0;bottom:0;width:0;border-left:1px solid var(--dsw-alias-border-l2)}",
 			".vk_row:hover .vk_guide{border-left-color:var(--dsw-alias-border-l3)}",
 			".vk_caret{width:14px;flex:none;color:var(--dsw-alias-label-tertiary);text-align:center;font-size:10px}",
 			// 左侧三角现在是**唯一的展开/收起入口**（单击行改成了「选中 / 再点一次进入」，见 B 项）
-			".vk_caretBtn{cursor:pointer;border-radius:4px}",
+			".vk_caretBtn{cursor:pointer;border-radius:var(--vk-r-xs)}",
 			".vk_caretBtn:hover{background:var(--dsw-alias-interactive-bg-hover);color:var(--dsw-alias-label-primary)}",
 			".vk_name{overflow:hidden;text-overflow:ellipsis;color:var(--dsw-alias-label-primary)}",
 			".vk_dirName{font-weight:500}",
-			".vk_relPath{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;font-size:11px;color:var(--dsw-alias-label-tertiary)}",
+			".vk_relPath{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;font-size:var(--vk-fs-xs);color:var(--dsw-alias-label-tertiary)}",
 			".vk_nameFixed{flex:none}",
 			".vk_rowActions{display:none;flex:none;margin-left:4px;align-items:center;gap:2px}",
 			// 行右端那一组按钮（「进入子目录」常显按钮 + hover 才出的重命名/删除）整块靠右：
@@ -189,11 +189,11 @@ function vkHomeDirsSync() {
 			".vk_row:not(:has(.vk_gitBadge)) .vk_rowTail{margin-left:auto}",
 			".vk_rowTail .vk_rowActions{margin-left:0}",
 			".vk_row:hover .vk_rowActions{display:flex}",
-			".vk_rowBtn{appearance:none;border:none;background:none;cursor:pointer;font-size:11px;width:20px;height:20px;padding:0;border-radius:5px;line-height:1;color:var(--dsw-alias-label-secondary);display:flex;align-items:center;justify-content:center;transition:background-color .1s,color .1s}",
+			".vk_rowBtn{appearance:none;border:none;background:none;cursor:pointer;font-size:var(--vk-fs-xs);width:20px;height:20px;padding:0;border-radius:var(--vk-r-sm);line-height:1;color:var(--dsw-alias-label-secondary);display:flex;align-items:center;justify-content:center;transition:background-color .1s,color .1s}",
 			".vk_rowBtn:hover{background:var(--dsw-alias-interactive-bg-hover-accent);color:var(--dsw-alias-label-primary)}",
 			// 真删除（送回收站）那颗：悬停染成告警色，和上面那颗「仅移出列表」的垃圾桶区分开
 			".vk_rowBtnDanger:hover{background:color-mix(in srgb,var(--dsw-alias-state-error-primary,#e5534b) 16%,transparent);color:var(--dsw-alias-state-error-primary,#e5534b)}",
-			".vk_hiddenHint{padding:3px 12px;font-size:11px;color:var(--dsw-alias-label-tertiary);cursor:default;white-space:nowrap;font-style:italic}",
+			".vk_hiddenHint{padding:3px 12px;font-size:var(--vk-fs-xs);color:var(--dsw-alias-label-tertiary);cursor:default;white-space:nowrap;font-style:italic}",
 			// ── 应用内「打开文件夹」目录浏览器弹窗 ──────────────────────
 			// z-index：官方 @ 菜单自身是 z-index:100（dsh-client-ui-input-trigger 的 ._3e4SsG_menu），
 			// 官方 UI 里最高的浮层是 1100。原来这里是 90 → **@ 菜单浮在弹窗之上**，正好压在卡片上半截，
@@ -206,10 +206,10 @@ function vkHomeDirsSync() {
 			// --vk-browse-dx：水平对齐偏移（2026-09-13 用户要求「相对对话框水平居中」）。
 			// 浮层模式由 VKBrowseModal 按锚点算出像素值写成内联变量；嵌入式不设 → 默认 0px，行为不变。
 			// transform 既写在常规态（动画结束后由它生效）也写进 vkBrowseIn（动画期间不丢偏移）。
-			".vk_browseCard{width:min(520px,94vw);height:min(300px,72vh);max-height:min(300px,72vh);background:var(--dsw-alias-bg-layer-2,var(--dsw-specific-menu));border:1px solid var(--dsw-alias-border-l2);border-radius:12px;box-shadow:var(--dsw-shadow-lv3),0 24px 60px rgba(0,0,0,.35);display:flex;flex-direction:column;overflow:hidden;transform:translateX(var(--vk-browse-dx,0px));animation:vkBrowseIn .14s cubic-bezier(.2,.7,.3,1)}",
+			".vk_browseCard{width:min(520px,94vw);height:min(300px,72vh);max-height:min(300px,72vh);background:var(--dsw-alias-bg-layer-2,var(--dsw-specific-menu));border:1px solid var(--dsw-alias-border-l2);border-radius:var(--vk-r-lg);box-shadow:var(--dsw-shadow-lv3),0 24px 60px rgba(0,0,0,.35);display:flex;flex-direction:column;overflow:hidden;transform:translateX(var(--vk-browse-dx,0px));animation:vkBrowseIn .14s cubic-bezier(.2,.7,.3,1)}",
 			".vk_browseHead{display:flex;align-items:center;gap:8px;padding:11px 12px 10px 14px;border-bottom:1px solid var(--dsw-alias-border-l1);color:var(--dsw-alias-label-primary)}",
-			".vk_browseTitle{flex:1;min-width:0;font-size:13px;font-weight:600;letter-spacing:.2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}",
-			".vk_iconBtn{appearance:none;border:none;background:none;cursor:pointer;color:var(--dsw-alias-label-tertiary);padding:0;width:24px;height:24px;border-radius:7px;display:flex;align-items:center;justify-content:center;flex:none;transition:background-color .1s,color .1s,transform .08s}",
+			".vk_browseTitle{flex:1;min-width:0;font-size:var(--vk-fs-md);font-weight:600;letter-spacing:.2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}",
+			".vk_iconBtn{appearance:none;border:none;background:none;cursor:pointer;color:var(--dsw-alias-label-tertiary);padding:0;width:24px;height:24px;border-radius:var(--vk-r-sm);display:flex;align-items:center;justify-content:center;flex:none;transition:background-color .1s,color .1s,transform .08s}",
 			".vk_iconBtn:hover{background:var(--dsw-alias-interactive-bg-hover);color:var(--dsw-alias-label-primary)}",
 			".vk_iconBtn:active{transform:scale(.94)}",
 			".vk_iconBtnOn{color:var(--vk-accent)}",
@@ -217,9 +217,9 @@ function vkHomeDirsSync() {
 			".vk_browsePathRow{display:flex;gap:6px;align-items:center;padding:8px 12px;border-bottom:1px solid var(--dsw-alias-border-l1)}",
 			".vk_browsePathRow .vk_pickInput{flex:1;min-width:0}",
 			".vk_browsePathIcon{display:flex;color:var(--dsw-alias-label-tertiary);flex:none}",
-			".vk_crumbs{display:flex;align-items:center;gap:1px;overflow-x:auto;scrollbar-width:none;padding:6px 10px;border-bottom:1px solid var(--dsw-alias-border-l1);font-size:12px;user-select:none}",
+			".vk_crumbs{display:flex;align-items:center;gap:1px;overflow-x:auto;scrollbar-width:none;padding:6px 10px;border-bottom:1px solid var(--dsw-alias-border-l1);font-size:var(--vk-fs-sm);user-select:none}",
 			".vk_crumbs::-webkit-scrollbar{display:none}",
-			".vk_crumb{display:inline-flex;align-items:center;gap:1px;padding:2px 5px;border-radius:5px;white-space:nowrap;color:var(--dsw-alias-label-tertiary)}",
+			".vk_crumb{display:inline-flex;align-items:center;gap:1px;padding:2px 5px;border-radius:var(--vk-r-sm);white-space:nowrap;color:var(--dsw-alias-label-tertiary)}",
 			".vk_crumb:not(.vk_crumbCur){cursor:pointer}",
 			".vk_crumb:not(.vk_crumbCur):hover{background:var(--dsw-alias-interactive-bg-hover);color:var(--dsw-alias-label-primary)}",
 			".vk_crumbCur{color:var(--dsw-alias-label-primary);font-weight:600}",
@@ -227,9 +227,9 @@ function vkHomeDirsSync() {
 			".vk_crumbsBack{margin-left:auto}",
 			// 内容区：只负责滚动，不再用 max-height 让卡片跟着内容长高（尺寸由 .vk_browseCard 定死）
 			".vk_browseBody{flex:1;min-height:0;overflow:auto;padding:6px;display:flex;flex-direction:column;gap:1px}",
-			".vk_browseErr{margin:2px 4px 4px;padding:7px 10px;border:1px solid color-mix(in srgb,var(--dsw-alias-state-error-primary) 45%,transparent);background:color-mix(in srgb,var(--dsw-alias-state-error-primary) 9%,transparent);color:var(--dsw-alias-state-error-primary);border-radius:7px;font-size:12px;line-height:16px;flex:none}",
-			".vk_browseHint{display:flex;align-items:center;justify-content:center;gap:6px;padding:20px 10px;font-size:12px;color:var(--dsw-alias-label-tertiary);text-align:center}",
-			".vk_browseRow{display:flex;align-items:center;gap:9px;padding:4px 10px;line-height:24px;font-size:13px;color:var(--dsw-alias-label-primary);cursor:pointer;border-radius:7px;white-space:nowrap;user-select:none;flex:none}",
+			".vk_browseErr{margin:2px 4px 4px;padding:7px 10px;border:1px solid color-mix(in srgb,var(--dsw-alias-state-error-primary) 45%,transparent);background:color-mix(in srgb,var(--dsw-alias-state-error-primary) 9%,transparent);color:var(--dsw-alias-state-error-primary);border-radius:var(--vk-r-sm);font-size:var(--vk-fs-sm);line-height:16px;flex:none}",
+			".vk_browseHint{display:flex;align-items:center;justify-content:center;gap:6px;padding:20px 10px;font-size:var(--vk-fs-sm);color:var(--dsw-alias-label-tertiary);text-align:center}",
+			".vk_browseRow{display:flex;align-items:center;gap:9px;padding:4px 10px;line-height:24px;font-size:var(--vk-fs-md);color:var(--dsw-alias-label-primary);cursor:pointer;border-radius:var(--vk-r-sm);white-space:nowrap;user-select:none;flex:none}",
 			".vk_browseRow:hover{background:var(--dsw-alias-interactive-bg-hover)}",
 			".vk_browseRowIcon{display:flex;color:var(--dsw-alias-label-tertiary);flex:none;transition:color .1s}",
 			".vk_browseRow:hover .vk_browseRowIcon{color:var(--dsw-alias-label-primary)}",
@@ -240,11 +240,11 @@ function vkHomeDirsSync() {
 			".vk_browseRowEnter{flex:none;width:20px;height:20px}",
 			".vk_browseRowSelected .vk_browseOpenHint{opacity:1}",
 			".vk_browseRowHidden{opacity:.55}",
-			".vk_browseShowHidden{color:var(--dsw-alias-label-tertiary);font-size:12px}",
+			".vk_browseShowHidden{color:var(--dsw-alias-label-tertiary);font-size:var(--vk-fs-sm)}",
 			// 文件行（"打开本机文件"弹窗的文件模式）：与目录行同款，光标给 pointer，末端的回车提示常显
 			".vk_browseFileRow{color:var(--dsw-alias-label-primary)}",
 			".vk_browseFileRow .vk_name{flex:0 1 auto}",
-			".vk_browseOpenHint{flex:none;margin-left:auto;font-size:10.5px;line-height:16px;padding:0 6px;border-radius:999px;background:var(--vk-accent-soft);color:var(--vk-accent);opacity:0;transition:opacity .12s}",
+			".vk_browseOpenHint{flex:none;margin-left:auto;font-size:10.5px;line-height:16px;padding:0 6px;border-radius:var(--vk-r-pill);background:var(--vk-accent-soft);color:var(--vk-accent);opacity:0;transition:opacity .12s}",
 			".vk_browseFileRow:hover .vk_browseOpenHint{opacity:1}",
 			// 标签正文内嵌（拓展栏「打开本机文件」）：不浮层、不遮罩，改成**居中卡片**（高度约栏高 1/3，
 			// 内容超出时卡片内部滚动）。原先铺满整列（height:100%）会把「只有几行目录」的内容拉成一大片空白，
@@ -253,27 +253,27 @@ function vkHomeDirsSync() {
 			".vk_browseEmbed{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;padding:12px;overflow:hidden}",
 			// 内嵌（拓展栏标签正文）形态：这条**不受上面那个固定高度管**，卡片按内容自适应（height:auto 覆盖），
 			// 否则几行目录会被 480px 的框拉出一大片空白。
-			".vk_browseCardEmbed{width:100%;max-width:520px;height:auto;max-height:100%;border-radius:12px;box-shadow:var(--dsw-shadow-lv3)}",
+			".vk_browseCardEmbed{width:100%;max-width:520px;height:auto;max-height:100%;border-radius:var(--vk-r-lg);box-shadow:var(--dsw-shadow-lv3)}",
 			".vk_browseCardEmbed .vk_browseBody{flex:0 1 auto;min-height:0;max-height:min(22vh,230px)}",
 			".vk_browseFoot{display:flex;align-items:center;gap:8px;padding:10px 12px;border-top:1px solid var(--dsw-alias-border-l1)}",
-			".vk_browseFootPath{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:11px;color:var(--dsw-alias-label-tertiary)}",
+			".vk_browseFootPath{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:var(--vk-fs-xs);color:var(--dsw-alias-label-tertiary)}",
 			".vk_primaryBtn{background:var(--vk-accent);color:#fff;border-color:var(--vk-accent);font-weight:600}",
 			".vk_primaryBtn:hover{background:var(--vk-accent);color:#fff;filter:brightness(1.1);border-color:var(--vk-accent)}",
 			".vk_primaryBtn:disabled{opacity:.45;cursor:not-allowed;filter:none}",
 			"@keyframes vkBrowseIn{from{opacity:0;transform:translateX(var(--vk-browse-dx,0px)) scale(.97) translateY(4px)}to{opacity:1;transform:translateX(var(--vk-browse-dx,0px))}}",
 			".vk_imgToolbar{display:flex;align-items:center;gap:2px;padding:4px 8px;border-bottom:1px solid var(--dsw-alias-border-l1);flex-wrap:wrap;flex:none}",
 			".vk_imgToolbarSpacer{flex:1;min-width:8px}",
-			".vk_imgZoomBtn{display:inline-flex;align-items:center;gap:4px;border:none;background:transparent;color:var(--dsw-alias-label-secondary);font-size:12px;padding:4px 7px;border-radius:6px;cursor:pointer;font-family:inherit}",
+			".vk_imgZoomBtn{display:inline-flex;align-items:center;gap:4px;border:none;background:transparent;color:var(--dsw-alias-label-secondary);font-size:var(--vk-fs-sm);padding:4px 7px;border-radius:var(--vk-r-sm);cursor:pointer;font-family:inherit}",
 			".vk_imgZoomBtn:hover{background:var(--dsw-alias-interactive-bg-hover);color:var(--dsw-alias-label-primary)}",
 			".vk_imgZoomBtnOn{color:var(--dsw-alias-label-primary);background:var(--dsw-alias-interactive-bg-hover)}",
-			".vk_imgZoomPct{font-size:11px;color:var(--dsw-alias-label-tertiary,var(--dsw-alias-label-secondary));min-width:52px;text-align:center;font-variant-numeric:tabular-nums}",
+			".vk_imgZoomPct{font-size:var(--vk-fs-xs);color:var(--dsw-alias-label-tertiary,var(--dsw-alias-label-secondary));min-width:52px;text-align:center;font-variant-numeric:tabular-nums}",
 			".vk_imgWrap{flex:1;min-height:0;display:flex;overflow:auto;background:repeating-conic-gradient(var(--dsw-alias-interactive-bg-hover) 0% 25%,transparent 0% 50%) 0 0/22px 22px;position:relative;cursor:grab}",
 			".vk_imgWrap.vk_imgPan{cursor:grabbing}",
-			".vk_imgWrap img{display:block;margin:auto;user-select:none;-webkit-user-drag:none;box-shadow:0 2px 16px rgba(0,0,0,.35);background:#fff;border-radius:4px}",
+			".vk_imgWrap img{display:block;margin:auto;user-select:none;-webkit-user-drag:none;box-shadow:0 2px 16px rgba(0,0,0,.35);background:#fff;border-radius:var(--vk-r-xs)}",
 			// ── 文件图标徽章（浅色基准；深色在文末覆盖） ─────────────────
-			".vk_icon{flex:none;width:17px;height:17px;display:inline-flex;align-items:center;justify-content:center;font-size:13px;line-height:1}",
+			".vk_icon{flex:none;width:17px;height:17px;display:inline-flex;align-items:center;justify-content:center;font-size:var(--vk-fs-md);line-height:1}",
 			".vk_iconSvg{color:var(--dsw-alias-label-secondary)}",
-			".vk_iconChip{width:16px;height:16px;border-radius:4px;font-size:8.5px;font-weight:700;font-family:ui-monospace,'Cascadia Mono',Consolas,monospace;letter-spacing:.1px}",
+			".vk_iconChip{width:16px;height:16px;border-radius:var(--vk-r-xs);font-size:8.5px;font-weight:700;font-family:ui-monospace,'Cascadia Mono',Consolas,monospace;letter-spacing:.1px}",
 			".vk_iJs{color:#9c8205;background:rgba(241,224,90,.28)}",
 			".vk_iTs{color:#3178c6;background:rgba(49,120,198,.16)}",
 			".vk_iReact{color:#0e9fc9;background:rgba(97,218,251,.2)}",
@@ -313,15 +313,15 @@ function vkHomeDirsSync() {
 			".vk_iNpm{color:#cb3837;background:rgba(203,56,55,.12)}",
 			".vk_iJava{color:#b07219;background:rgba(176,114,25,.14)}",
 			// ── Git 角标：VS Code 式纯色字母（无底色胶囊） ────────────────
-			".vk_gitBadge{flex:none;margin-left:auto;padding:0 2px;font-size:11px;font-weight:700;line-height:16px;letter-spacing:.2px}",
+			".vk_gitBadge{flex:none;margin-left:auto;padding:0 2px;font-size:var(--vk-fs-xs);font-weight:700;line-height:16px;letter-spacing:.2px}",
 			".vk_gitM{color:#c09a52}",
 			".vk_gitU,.vk_gitA{color:#4f9e68}",
 			".vk_gitD{color:#d64545}",
 			".vk_gitR{color:#a866c4}",
-			".vk_saveMsg{font-size:12px;color:var(--dsw-alias-label-secondary);flex:none}",
+			".vk_saveMsg{font-size:var(--vk-fs-sm);color:var(--dsw-alias-label-secondary);flex:none}",
 			// ── 空态 / 错误 / 通知排版 ─────────────────────────────────
-			".vk_err{margin:8px;padding:8px 10px;font-size:12px;line-height:1.6;color:var(--dsw-alias-state-error-primary);background:var(--dsw-alias-interactive-bg-hover-danger);border-radius:6px}",
-			".vk_empty{padding:32px 20px;font-size:12.5px;line-height:2;color:var(--dsw-alias-label-tertiary);text-align:center;white-space:pre-wrap}",
+			".vk_err{margin:8px;padding:8px 10px;font-size:var(--vk-fs-sm);line-height:1.6;color:var(--dsw-alias-state-error-primary);background:var(--dsw-alias-interactive-bg-hover-danger);border-radius:var(--vk-r-sm)}",
+			".vk_empty{padding:32px 20px;font-size:var(--vk-fs-sm);line-height:2;color:var(--dsw-alias-label-tertiary);text-align:center;white-space:pre-wrap}",
 			// ── 键盘聚焦可见态（统一 accent 光圈） ──────────────────────
 			".vk_tabBtn:focus-visible,.vk_railBtn:focus-visible,.vk_treeBtn:focus-visible,.vk_rowBtn:focus-visible,.vk_pickBtn:focus-visible,.vk_editBtn:focus-visible,.vk_tabClose:focus-visible{outline:2px solid var(--vk-accent-ring);outline-offset:-2px}",
 			// ── 深色主题覆盖：徽章/角标颜色提亮 ─────────────────────────
@@ -355,10 +355,10 @@ function vkHomeDirsSync() {
 			"body[data-ds-dark-theme] .vk_gitD{color:#f14c4c}",
 			"body[data-ds-dark-theme] .vk_gitR{color:#c678dd}",
 			".vk_imgToolbar{display:flex;align-items:center;gap:2px;padding:4px 8px;border-bottom:1px solid var(--dsw-alias-border-l1);flex-wrap:wrap}",
-			".vk_imgZoomBtn{display:inline-flex;align-items:center;gap:4px;border:none;background:transparent;color:var(--dsw-alias-label-secondary);font-size:12px;padding:4px 7px;border-radius:6px;cursor:pointer}",
+			".vk_imgZoomBtn{display:inline-flex;align-items:center;gap:4px;border:none;background:transparent;color:var(--dsw-alias-label-secondary);font-size:var(--vk-fs-sm);padding:4px 7px;border-radius:var(--vk-r-sm);cursor:pointer}",
 			".vk_imgZoomBtn:disabled{opacity:.4;cursor:default}",
-			".vk_homeLabel{display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--dsw-alias-label-tertiary);letter-spacing:.02em;margin:6px 10px 2px}",
-			".vk_homeLabelToggle{cursor:pointer;user-select:none;border-radius:4px;padding:1px 4px;margin-left:6px;margin-right:6px}",
+			".vk_homeLabel{display:flex;align-items:center;gap:6px;font-size:var(--vk-fs-xs);color:var(--dsw-alias-label-tertiary);letter-spacing:.02em;margin:6px 10px 2px}",
+			".vk_homeLabelToggle{cursor:pointer;user-select:none;border-radius:var(--vk-r-xs);padding:1px 4px;margin-left:6px;margin-right:6px}",
 			".vk_homeLabelToggle:hover{background:var(--dsw-alias-interactive-bg-hover);color:var(--dsw-alias-label-secondary)}",
 		].join("");
 
@@ -1772,7 +1772,8 @@ function vkHomeDirsSync() {
 			try {
 				const svc = ctxRef.current.get("sessions");
 				const snap = svc.list.getSnapshot();
-				const row = snap !== undefined && snap !== null && typeof snap.current === "string" ? snap.byId[snap.current] : null;
+				const id = vkCurrentSessionId();
+				const row = snap !== undefined && snap !== null && id !== "" ? snap.byId[id] : null;
 				return row !== undefined && row !== null && row.blank !== true && typeof row.cwd === "string" ? row.cwd : "";
 			} catch { return ""; }
 		}
@@ -2130,17 +2131,17 @@ function vkHomeDirsSync() {
 
 
 		const CSS = [
-			".vk_pickInput{box-sizing:border-box;width:100%;background:var(--dsw-specific-input-major);border:1px solid var(--dsw-alias-border-l2);border-radius:6px;color:var(--dsw-alias-label-primary);font-size:12px;padding:6px 9px;outline:none;font-family:inherit;transition:border-color .12s,box-shadow .12s}",
+			".vk_pickInput{box-sizing:border-box;width:100%;background:var(--dsw-specific-input-major);border:1px solid var(--dsw-alias-border-l2);border-radius:var(--vk-r-sm);color:var(--dsw-alias-label-primary);font-size:var(--vk-fs-sm);padding:6px 9px;outline:none;font-family:inherit;transition:border-color .12s,box-shadow .12s}",
 			".vk_pickInput:hover{border-color:var(--dsw-alias-border-l3)}",
 			".vk_pickInput:focus{border-color:var(--vk-accent);box-shadow:0 0 0 2px var(--vk-accent-ring)}",
 			".vk_pickInput::placeholder{color:var(--dsw-alias-label-tertiary)}",
 			".vk_row .vk_pickInput{padding:3px 8px}",
-			".vk_pickRow{display:flex;gap:6px;justify-content:flex-end;min-width:0;container-type:inline-size}@container (width<=360px){.vk_pickBtn{padding:4px 8px;font-size:11px}}",
-			".vk_pickBtn{appearance:none;cursor:pointer;border:1px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-bg-base);color:var(--dsw-alias-label-primary);border-radius:6px;font-size:12px;padding:4px 12px;font-family:inherit;transition:background-color .12s,border-color .12s,color .12s}",
+			".vk_pickRow{display:flex;gap:6px;justify-content:flex-end;min-width:0;container-type:inline-size}@container (width<=360px){.vk_pickBtn{padding:4px 8px;font-size:var(--vk-fs-xs)}}",
+			".vk_pickBtn{appearance:none;cursor:pointer;border:1px solid var(--dsw-alias-border-l2);background:var(--dsw-alias-bg-base);color:var(--dsw-alias-label-primary);border-radius:var(--vk-r-sm);font-size:var(--vk-fs-sm);padding:4px 12px;font-family:inherit;transition:background-color .12s,border-color .12s,color .12s}",
 			".vk_pickBtn:hover{background:var(--dsw-alias-interactive-bg-hover);border-color:var(--dsw-alias-border-l3)}",
 			".vk_name{overflow:hidden;text-overflow:ellipsis;color:var(--dsw-alias-label-primary)}",
-			".vk_relPath{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;font-size:11px;color:var(--dsw-alias-label-tertiary)}",
-			".vk_rowBtn{appearance:none;border:none;background:none;cursor:pointer;font-size:11px;width:20px;height:20px;padding:0;border-radius:5px;line-height:1;color:var(--dsw-alias-label-secondary);display:flex;align-items:center;justify-content:center;transition:background-color .1s,color .1s}",
+			".vk_relPath{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;font-size:var(--vk-fs-xs);color:var(--dsw-alias-label-tertiary)}",
+			".vk_rowBtn{appearance:none;border:none;background:none;cursor:pointer;font-size:var(--vk-fs-xs);width:20px;height:20px;padding:0;border-radius:var(--vk-r-sm);line-height:1;color:var(--dsw-alias-label-secondary);display:flex;align-items:center;justify-content:center;transition:background-color .1s,color .1s}",
 			".vk_rowBtn:hover{background:var(--dsw-alias-interactive-bg-hover-accent);color:var(--dsw-alias-label-primary)}",
 			// ── 应用内「打开文件夹」目录浏览器弹窗 ──────────────────────
 			// z-index：官方 @ 菜单自身是 z-index:100（dsh-client-ui-input-trigger 的 ._3e4SsG_menu），
@@ -2154,10 +2155,10 @@ function vkHomeDirsSync() {
 			// --vk-browse-dx：水平对齐偏移（2026-09-13 用户要求「相对对话框水平居中」）。
 			// 浮层模式由 VKBrowseModal 按锚点算出像素值写成内联变量；嵌入式不设 → 默认 0px，行为不变。
 			// transform 既写在常规态（动画结束后由它生效）也写进 vkBrowseIn（动画期间不丢偏移）。
-			".vk_browseCard{width:min(520px,94vw);height:min(300px,72vh);max-height:min(300px,72vh);background:var(--dsw-alias-bg-layer-2,var(--dsw-specific-menu));border:1px solid var(--dsw-alias-border-l2);border-radius:12px;box-shadow:var(--dsw-shadow-lv3),0 24px 60px rgba(0,0,0,.35);display:flex;flex-direction:column;overflow:hidden;transform:translateX(var(--vk-browse-dx,0px));animation:vkBrowseIn .14s cubic-bezier(.2,.7,.3,1)}",
+			".vk_browseCard{width:min(520px,94vw);height:min(300px,72vh);max-height:min(300px,72vh);background:var(--dsw-alias-bg-layer-2,var(--dsw-specific-menu));border:1px solid var(--dsw-alias-border-l2);border-radius:var(--vk-r-lg);box-shadow:var(--dsw-shadow-lv3),0 24px 60px rgba(0,0,0,.35);display:flex;flex-direction:column;overflow:hidden;transform:translateX(var(--vk-browse-dx,0px));animation:vkBrowseIn .14s cubic-bezier(.2,.7,.3,1)}",
 			".vk_browseHead{display:flex;align-items:center;gap:8px;padding:11px 12px 10px 14px;border-bottom:1px solid var(--dsw-alias-border-l1);color:var(--dsw-alias-label-primary)}",
-			".vk_browseTitle{flex:1;min-width:0;font-size:13px;font-weight:600;letter-spacing:.2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}",
-			".vk_iconBtn{appearance:none;border:none;background:none;cursor:pointer;color:var(--dsw-alias-label-tertiary);padding:0;width:24px;height:24px;border-radius:7px;display:flex;align-items:center;justify-content:center;flex:none;transition:background-color .1s,color .1s,transform .08s}",
+			".vk_browseTitle{flex:1;min-width:0;font-size:var(--vk-fs-md);font-weight:600;letter-spacing:.2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}",
+			".vk_iconBtn{appearance:none;border:none;background:none;cursor:pointer;color:var(--dsw-alias-label-tertiary);padding:0;width:24px;height:24px;border-radius:var(--vk-r-sm);display:flex;align-items:center;justify-content:center;flex:none;transition:background-color .1s,color .1s,transform .08s}",
 			".vk_iconBtn:hover{background:var(--dsw-alias-interactive-bg-hover);color:var(--dsw-alias-label-primary)}",
 			".vk_iconBtn:active{transform:scale(.94)}",
 			".vk_iconBtnOn{color:var(--vk-accent)}",
@@ -2165,9 +2166,9 @@ function vkHomeDirsSync() {
 			".vk_browsePathRow{display:flex;gap:6px;align-items:center;padding:8px 12px;border-bottom:1px solid var(--dsw-alias-border-l1)}",
 			".vk_browsePathRow .vk_pickInput{flex:1;min-width:0}",
 			".vk_browsePathIcon{display:flex;color:var(--dsw-alias-label-tertiary);flex:none}",
-			".vk_crumbs{display:flex;align-items:center;gap:1px;overflow-x:auto;scrollbar-width:none;padding:6px 10px;border-bottom:1px solid var(--dsw-alias-border-l1);font-size:12px;user-select:none}",
+			".vk_crumbs{display:flex;align-items:center;gap:1px;overflow-x:auto;scrollbar-width:none;padding:6px 10px;border-bottom:1px solid var(--dsw-alias-border-l1);font-size:var(--vk-fs-sm);user-select:none}",
 			".vk_crumbs::-webkit-scrollbar{display:none}",
-			".vk_crumb{display:inline-flex;align-items:center;gap:1px;padding:2px 5px;border-radius:5px;white-space:nowrap;color:var(--dsw-alias-label-tertiary)}",
+			".vk_crumb{display:inline-flex;align-items:center;gap:1px;padding:2px 5px;border-radius:var(--vk-r-sm);white-space:nowrap;color:var(--dsw-alias-label-tertiary)}",
 			".vk_crumb:not(.vk_crumbCur){cursor:pointer}",
 			".vk_crumb:not(.vk_crumbCur):hover{background:var(--dsw-alias-interactive-bg-hover);color:var(--dsw-alias-label-primary)}",
 			".vk_crumbCur{color:var(--dsw-alias-label-primary);font-weight:600}",
@@ -2175,9 +2176,9 @@ function vkHomeDirsSync() {
 			".vk_crumbsBack{margin-left:auto}",
 			// 内容区：只负责滚动，不再用 max-height 让卡片跟着内容长高（尺寸由 .vk_browseCard 定死）
 			".vk_browseBody{flex:1;min-height:0;overflow:auto;padding:6px;display:flex;flex-direction:column;gap:1px}",
-			".vk_browseErr{margin:2px 4px 4px;padding:7px 10px;border:1px solid color-mix(in srgb,var(--dsw-alias-state-error-primary) 45%,transparent);background:color-mix(in srgb,var(--dsw-alias-state-error-primary) 9%,transparent);color:var(--dsw-alias-state-error-primary);border-radius:7px;font-size:12px;line-height:16px;flex:none}",
-			".vk_browseHint{display:flex;align-items:center;justify-content:center;gap:6px;padding:20px 10px;font-size:12px;color:var(--dsw-alias-label-tertiary);text-align:center}",
-			".vk_browseRow{display:flex;align-items:center;gap:9px;padding:4px 10px;line-height:24px;font-size:13px;color:var(--dsw-alias-label-primary);cursor:pointer;border-radius:7px;white-space:nowrap;user-select:none;flex:none}",
+			".vk_browseErr{margin:2px 4px 4px;padding:7px 10px;border:1px solid color-mix(in srgb,var(--dsw-alias-state-error-primary) 45%,transparent);background:color-mix(in srgb,var(--dsw-alias-state-error-primary) 9%,transparent);color:var(--dsw-alias-state-error-primary);border-radius:var(--vk-r-sm);font-size:var(--vk-fs-sm);line-height:16px;flex:none}",
+			".vk_browseHint{display:flex;align-items:center;justify-content:center;gap:6px;padding:20px 10px;font-size:var(--vk-fs-sm);color:var(--dsw-alias-label-tertiary);text-align:center}",
+			".vk_browseRow{display:flex;align-items:center;gap:9px;padding:4px 10px;line-height:24px;font-size:var(--vk-fs-md);color:var(--dsw-alias-label-primary);cursor:pointer;border-radius:var(--vk-r-sm);white-space:nowrap;user-select:none;flex:none}",
 			".vk_browseRow:hover{background:var(--dsw-alias-interactive-bg-hover)}",
 			".vk_browseRowIcon{display:flex;color:var(--dsw-alias-label-tertiary);flex:none;transition:color .1s}",
 			".vk_browseRow:hover .vk_browseRowIcon{color:var(--dsw-alias-label-primary)}",
@@ -2188,22 +2189,22 @@ function vkHomeDirsSync() {
 			".vk_browseRowEnter{flex:none;width:20px;height:20px}",
 			".vk_browseRowSelected .vk_browseOpenHint{opacity:1}",
 			".vk_browseRowHidden{opacity:.55}",
-			".vk_browseShowHidden{color:var(--dsw-alias-label-tertiary);font-size:12px}",
+			".vk_browseShowHidden{color:var(--dsw-alias-label-tertiary);font-size:var(--vk-fs-sm)}",
 			// 文件行（"打开本机文件"弹窗的文件模式）：与目录行同款，光标给 pointer，末端的回车提示常显
 			".vk_browseFileRow{color:var(--dsw-alias-label-primary)}",
 			".vk_browseFileRow .vk_name{flex:0 1 auto}",
-			".vk_browseOpenHint{flex:none;margin-left:auto;font-size:10.5px;line-height:16px;padding:0 6px;border-radius:999px;background:var(--vk-accent-soft);color:var(--vk-accent);opacity:0;transition:opacity .12s}",
+			".vk_browseOpenHint{flex:none;margin-left:auto;font-size:10.5px;line-height:16px;padding:0 6px;border-radius:var(--vk-r-pill);background:var(--vk-accent-soft);color:var(--vk-accent);opacity:0;transition:opacity .12s}",
 			".vk_browseFileRow:hover .vk_browseOpenHint{opacity:1}",
 			// ── @ 列表右上角：「搜索本机文件」放大镜（2026-09-12 用户要求，从对话框工具行搬到这里） ──
 			// 绝对定位钉在官方 @ 菜单容器（[data-trigger-menu]）的右上角；按钮本体是原生 DOM，
 			// 由 vkInstallAtSearchButton 注入（原因见那里的长注释：菜单是官方 React 树，插不进去）。
-			"[data-trigger-menu] .vk_atSearchBtn{position:absolute;top:5px;right:5px;z-index:3;appearance:none;border:none;background:none;cursor:pointer;width:24px;height:24px;padding:0;border-radius:6px;color:var(--dsw-alias-label-tertiary);display:flex;align-items:center;justify-content:center;transition:background-color .12s,color .12s}",
+			"[data-trigger-menu] .vk_atSearchBtn{position:absolute;top:5px;right:5px;z-index:3;appearance:none;border:none;background:none;cursor:pointer;width:24px;height:24px;padding:0;border-radius:var(--vk-r-sm);color:var(--dsw-alias-label-tertiary);display:flex;align-items:center;justify-content:center;transition:background-color .12s,color .12s}",
 			"[data-trigger-menu] .vk_atSearchBtn:hover{background:var(--dsw-alias-interactive-bg-hover);color:var(--dsw-alias-label-primary)}",
 			"[data-trigger-menu] .vk_atSearchBtn.vk_atSearchBtnOn{background:var(--vk-accent-soft);color:var(--vk-accent)}",
 			// @ 菜单里「单击选中」的描边高亮：与弹窗 .vk_browseRowSelected 同款（底纹 + accent 内描边）。
 			// 官方候选行是 role=option 的按钮（容器带 data-trigger-menu），候选对象没有样式字段，
 			// 选中态只能由本插件在 DOM 上标类（见 vkAtMarkPicked）。
-			"[data-trigger-menu] [role=option].vk-at-picked{background:var(--dsw-alias-interactive-bg-hover)!important;box-shadow:inset 0 0 0 1px var(--vk-accent-ring);border-radius:8px}",
+			"[data-trigger-menu] [role=option].vk-at-picked{background:var(--dsw-alias-interactive-bg-hover)!important;box-shadow:inset 0 0 0 1px var(--vk-accent-ring);border-radius:var(--vk-r-md)}",
 			// 浏览态第一行「↑ 返回上一级」：position:sticky 钉在菜单顶部，滚动时不动（用户口径：随时能点返回）。
 			// 必须有实底背景，否则下面的行会从它底下透出来；sticky 的参照就是官方 listbox 那个滚动视口。
 			"[data-trigger-menu] [role=option].vk-at-pinned{position:sticky;top:0;z-index:2;background:var(--dsw-specific-menu);border-bottom:1px solid var(--dsw-alias-border-l1)}",
@@ -2214,27 +2215,27 @@ function vkHomeDirsSync() {
 			".vk_browseEmbed{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;padding:12px;overflow:hidden}",
 			// 内嵌（拓展栏标签正文）形态：这条**不受上面那个固定高度管**，卡片按内容自适应（height:auto 覆盖），
 			// 否则几行目录会被 480px 的框拉出一大片空白。
-			".vk_browseCardEmbed{width:100%;max-width:520px;height:auto;max-height:100%;border-radius:12px;box-shadow:var(--dsw-shadow-lv3)}",
+			".vk_browseCardEmbed{width:100%;max-width:520px;height:auto;max-height:100%;border-radius:var(--vk-r-lg);box-shadow:var(--dsw-shadow-lv3)}",
 			".vk_browseCardEmbed .vk_browseBody{flex:0 1 auto;min-height:0;max-height:min(22vh,230px)}",
 			".vk_browseFoot{display:flex;align-items:center;gap:8px;padding:10px 12px;border-top:1px solid var(--dsw-alias-border-l1)}",
-			".vk_browseFootPath{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:11px;color:var(--dsw-alias-label-tertiary)}",
+			".vk_browseFootPath{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:var(--vk-fs-xs);color:var(--dsw-alias-label-tertiary)}",
 			".vk_primaryBtn{background:var(--vk-accent);color:#fff;border-color:var(--vk-accent);font-weight:600}",
 			".vk_primaryBtn:hover{background:var(--vk-accent);color:#fff;filter:brightness(1.1);border-color:var(--vk-accent)}",
 			".vk_primaryBtn:disabled{opacity:.45;cursor:not-allowed;filter:none}",
 			"@keyframes vkBrowseIn{from{opacity:0;transform:translateX(var(--vk-browse-dx,0px)) scale(.97) translateY(4px)}to{opacity:1;transform:translateX(var(--vk-browse-dx,0px))}}",
 			".vk_imgToolbar{display:flex;align-items:center;gap:2px;padding:4px 8px;border-bottom:1px solid var(--dsw-alias-border-l1);flex-wrap:wrap;flex:none}",
 			".vk_imgToolbarSpacer{flex:1;min-width:8px}",
-			".vk_imgZoomBtn{display:inline-flex;align-items:center;gap:4px;border:none;background:transparent;color:var(--dsw-alias-label-secondary);font-size:12px;padding:4px 7px;border-radius:6px;cursor:pointer;font-family:inherit}",
+			".vk_imgZoomBtn{display:inline-flex;align-items:center;gap:4px;border:none;background:transparent;color:var(--dsw-alias-label-secondary);font-size:var(--vk-fs-sm);padding:4px 7px;border-radius:var(--vk-r-sm);cursor:pointer;font-family:inherit}",
 			".vk_imgZoomBtn:hover{background:var(--dsw-alias-interactive-bg-hover);color:var(--dsw-alias-label-primary)}",
 			".vk_imgZoomBtnOn{color:var(--dsw-alias-label-primary);background:var(--dsw-alias-interactive-bg-hover)}",
-			".vk_imgZoomPct{font-size:11px;color:var(--dsw-alias-label-tertiary,var(--dsw-alias-label-secondary));min-width:52px;text-align:center;font-variant-numeric:tabular-nums}",
+			".vk_imgZoomPct{font-size:var(--vk-fs-xs);color:var(--dsw-alias-label-tertiary,var(--dsw-alias-label-secondary));min-width:52px;text-align:center;font-variant-numeric:tabular-nums}",
 			".vk_imgWrap{flex:1;min-height:0;display:flex;overflow:auto;background:repeating-conic-gradient(var(--dsw-alias-interactive-bg-hover) 0% 25%,transparent 0% 50%) 0 0/22px 22px;position:relative;cursor:grab}",
 			".vk_imgWrap.vk_imgPan{cursor:grabbing}",
-			".vk_imgWrap img{display:block;margin:auto;user-select:none;-webkit-user-drag:none;box-shadow:0 2px 16px rgba(0,0,0,.35);background:#fff;border-radius:4px}",
+			".vk_imgWrap img{display:block;margin:auto;user-select:none;-webkit-user-drag:none;box-shadow:0 2px 16px rgba(0,0,0,.35);background:#fff;border-radius:var(--vk-r-xs)}",
 			// ── 文件图标徽章（浅色基准；深色在文末覆盖） ─────────────────
-			".vk_icon{flex:none;width:17px;height:17px;display:inline-flex;align-items:center;justify-content:center;font-size:13px;line-height:1}",
+			".vk_icon{flex:none;width:17px;height:17px;display:inline-flex;align-items:center;justify-content:center;font-size:var(--vk-fs-md);line-height:1}",
 			".vk_iconSvg{color:var(--dsw-alias-label-secondary)}",
-			".vk_iconChip{width:16px;height:16px;border-radius:4px;font-size:8.5px;font-weight:700;font-family:ui-monospace,'Cascadia Mono',Consolas,monospace;letter-spacing:.1px}",
+			".vk_iconChip{width:16px;height:16px;border-radius:var(--vk-r-xs);font-size:8.5px;font-weight:700;font-family:ui-monospace,'Cascadia Mono',Consolas,monospace;letter-spacing:.1px}",
 			".vk_iJs{color:#9c8205;background:rgba(241,224,90,.28)}",
 			".vk_iTs{color:#3178c6;background:rgba(49,120,198,.16)}",
 			".vk_iReact{color:#0e9fc9;background:rgba(97,218,251,.2)}",
@@ -2302,7 +2303,7 @@ function vkHomeDirsSync() {
 			"body[data-ds-dark-theme] .vk_iGit{color:#f05033}",
 			"body[data-ds-dark-theme] .vk_iJava{color:#e6b84f}",
 			".vk_imgToolbar{display:flex;align-items:center;gap:2px;padding:4px 8px;border-bottom:1px solid var(--dsw-alias-border-l1);flex-wrap:wrap}",
-			".vk_imgZoomBtn{display:inline-flex;align-items:center;gap:4px;border:none;background:transparent;color:var(--dsw-alias-label-secondary);font-size:12px;padding:4px 7px;border-radius:6px;cursor:pointer}",
+			".vk_imgZoomBtn{display:inline-flex;align-items:center;gap:4px;border:none;background:transparent;color:var(--dsw-alias-label-secondary);font-size:var(--vk-fs-sm);padding:4px 7px;border-radius:var(--vk-r-sm);cursor:pointer}",
 			".vk_imgZoomBtn:disabled{opacity:.4;cursor:default}",
 			// 对话里 read/write 卡片的路径按钮（官方 `_fileLink`）：自研把点击改成「在拓展栏打开」，
 			// 于是补一颗小箭头做**可见提示**——不 hover 不占位（宽度 0、opacity 0），hover 才展开，
@@ -2900,7 +2901,8 @@ function vkHomeDirsSync() {
 		function vkCurrentSessionCwd() {
 			try {
 				const snapshot = ctxRef.current.get("sessions").list.getSnapshot();
-				const row = snapshot !== undefined && snapshot.current !== undefined ? snapshot.byId[snapshot.current] : undefined;
+				const id = vkCurrentSessionId();
+				const row = snapshot !== undefined && snapshot !== null && id !== "" ? snapshot.byId[id] : undefined;
 				return row !== undefined && typeof row.cwd === "string" && row.cwd.length > 0 ? row.cwd : "";
 			} catch { return ""; }
 		}
@@ -4099,8 +4101,8 @@ function vkHomeDirsSync() {
 		function vkLiveSession(ctx) {
 			try {
 				const snap = ctx.get("sessions").list.getSnapshot();
-				const id = snap === null || snap === undefined ? null : snap.current;
-				const entry = id !== null && snap.byId !== undefined ? snap.byId[id] : null;
+				const id = vkCurrentSessionId();
+				const entry = id !== "" && snap !== undefined && snap !== null && snap.byId !== undefined ? snap.byId[id] : null;
 				const cwd = entry !== null && entry !== undefined && typeof entry.cwd === "string" ? entry.cwd : "";
 				return { id: id === null || id === undefined ? "" : String(id), cwd };
 			} catch {
