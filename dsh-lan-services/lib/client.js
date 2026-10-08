@@ -26,46 +26,47 @@ window.__ModuleLoader__.load({
     }
 
     const CSS = `
-.dls-dock{box-sizing:border-box;width:100%;border-top:1px solid var(--dsw-alias-border-l1);background:var(--dsw-specific-sidebar-fill);display:flex;flex-direction:column;padding:6px 10px 8px;font-size:11px;color:var(--dsw-alias-label-primary);position:relative;overflow:visible;}
-.dls-row1{display:flex;align-items:center;gap:6px;min-height:22px;flex:none;min-width:0;}
-.dls-title{font-weight:600;font-size:11px;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-flex;align-items:center;gap:5px;cursor:pointer;user-select:none;}
-.dls-dot{width:8px;height:8px;border-radius:50%;background:var(--dsw-alias-state-success-primary);flex:none;}
-.dls-dot-off{width:8px;height:8px;border-radius:50%;background:var(--dsw-alias-state-warn-primary);flex:none;}
-.dls-cnt{font-size:10px;color:var(--dsw-alias-label-secondary);font-variant-numeric:tabular-nums;flex:none;}
-.dls-ibar{width:20px;height:20px;border-radius:6px;border:none;background:transparent;color:var(--dsw-alias-label-secondary);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;flex:none;padding:0;}
-.dls-ibar:hover{background:var(--dsw-alias-interactive-bg-hover);color:var(--dsw-alias-label-primary);}
-.dls-ibar svg{display:block;}
-.dls-collapse{display:grid;grid-template-rows:0fr;transition:grid-template-rows .25s ease;}
-.dls-collapse.dls-open{grid-template-rows:1fr;}
-.dls-collapse-inner{overflow:hidden;min-height:0;display:flex;flex-direction:column;gap:3px;padding-top:3px;max-height:46vh;opacity:0;transition:opacity .18s ease;}
-.dls-collapse.dls-open .dls-collapse-inner{opacity:1;}
-.dls-list{display:flex;flex-direction:column;gap:4px;overflow-y:auto;min-height:0;padding-right:2px;}
-.dls-svc{border:1px solid var(--dsw-alias-border-l1);border-radius:8px;padding:4px 7px 5px;display:flex;flex-direction:column;gap:1px;background:color-mix(in srgb,var(--dsw-alias-border-l1) 35%,transparent);flex:none;}
-.dls-svc-h{display:flex;align-items:center;gap:5px;min-width:0;}
-.dls-svc-name{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:600;color:var(--dsw-alias-label-primary);display:inline-flex;align-items:center;gap:4px;cursor:pointer;}
-.dls-svc-name:hover{opacity:.85;}
+body{--vk-accent:var(--dsw-alias-accent,var(--dsw-alias-state-business-primary));--vk-accent-ring:color-mix(in srgb,var(--vk-accent) 22%,transparent);--vk-accent-soft:color-mix(in srgb,var(--vk-accent) 12%,transparent);--vk-ok:#73c991;--vk-danger:var(--dsw-alias-state-error-primary,#f14c4c);--vk-danger-soft:color-mix(in srgb,var(--vk-danger) 35%,transparent);--vk-fg:var(--dsw-alias-label-primary);--vk-fg2:var(--dsw-alias-label-secondary);--vk-fg3:var(--dsw-alias-label-tertiary);--vk-line:var(--dsw-alias-border-l1);--vk-line2:var(--dsw-alias-border-l2);--vk-bg-hover:var(--dsw-alias-interactive-bg-hover);--vk-r-xs:4px;--vk-r-sm:6px;--vk-r-md:8px;--vk-r-lg:12px;--vk-r-pill:999px;--vk-fs-xs:11px;--vk-fs-sm:12px;--vk-fs-md:13px;--vk-fs-lg:14px;--vk-dur:.12s;--vk-ease:cubic-bezier(.2,.7,.3,1);--vk-fade:background-color var(--vk-dur) var(--vk-ease),color var(--vk-dur) var(--vk-ease),border-color var(--vk-dur) var(--vk-ease),opacity var(--vk-dur) var(--vk-ease);--vk-ring:0 0 0 2px var(--vk-accent-ring);}
+.dls_dock{box-sizing:border-box;width:100%;border-top:1px solid var(--dsw-alias-border-l1);background:var(--dsw-specific-sidebar-fill);display:flex;flex-direction:column;padding:6px 10px 8px;font-size:var(--vk-fs-xs);color:var(--dsw-alias-label-primary);position:relative;overflow:visible;}
+.dls_row1{display:flex;align-items:center;gap:6px;min-height:22px;flex:none;min-width:0;}
+.dls_title{font-weight:600;font-size:var(--vk-fs-xs);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-flex;align-items:center;gap:5px;cursor:pointer;user-select:none;}
+.dls_dot{width:8px;height:8px;border-radius:50%;background:var(--dsw-alias-state-success-primary);flex:none;}
+.dls_dot_off{width:8px;height:8px;border-radius:50%;background:var(--dsw-alias-state-warn-primary);flex:none;}
+.dls_cnt{font-size:10px;color:var(--dsw-alias-label-secondary);font-variant-numeric:tabular-nums;flex:none;}
+.dls_ibar{width:20px;height:20px;border-radius:var(--vk-r-sm);border:none;background:transparent;color:var(--dsw-alias-label-secondary);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;flex:none;padding:0;}
+.dls_ibar:hover{background:var(--dsw-alias-interactive-bg-hover);color:var(--dsw-alias-label-primary);}
+.dls_ibar svg{display:block;}
+.dls_collapse{display:grid;grid-template-rows:0fr;transition:grid-template-rows .25s ease;}
+.dls_collapse.dls_open{grid-template-rows:1fr;}
+.dls_collapse_inner{overflow:hidden;min-height:0;display:flex;flex-direction:column;gap:3px;padding-top:3px;max-height:46vh;opacity:0;transition:opacity .18s ease;}
+.dls_collapse.dls_open .dls_collapse_inner{opacity:1;}
+.dls_list{display:flex;flex-direction:column;gap:4px;overflow-y:auto;min-height:0;padding-right:2px;}
+.dls_svc{border:1px solid var(--dsw-alias-border-l1);border-radius:var(--vk-r-md);padding:4px 7px 5px;display:flex;flex-direction:column;gap:1px;background:color-mix(in srgb,var(--dsw-alias-border-l1) 35%,transparent);flex:none;}
+.dls_svc_h{display:flex;align-items:center;gap:5px;min-width:0;}
+.dls_svc_name{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:600;color:var(--dsw-alias-label-primary);display:inline-flex;align-items:center;gap:4px;cursor:pointer;}
+.dls_svc_name:hover{opacity:.85;}
 
-.dls-editname{flex:1;min-width:0;background:transparent;border:1px solid var(--dsw-alias-brand-primary);border-radius:4px;color:var(--dsw-alias-label-primary);font-size:11px;font-family:inherit;padding:0 4px;height:18px;box-sizing:border-box;outline:none;}
-.dls-ren{border:none;background:transparent;color:var(--dsw-alias-label-secondary);cursor:pointer;padding:1px 2px;border-radius:4px;display:inline-flex;align-items:center;flex:none;}
-.dls-ren:hover{color:var(--dsw-alias-brand-primary);}
-.dls-ren svg{display:block;}
-.dls-btn{border:none;background:transparent;color:var(--dsw-alias-brand-primary);cursor:pointer;font-size:11px;padding:1px 7px;border-radius:6px;font-family:inherit;line-height:1.5;flex:none;height:18px;}
-.dls-btn:hover{background:var(--dsw-alias-interactive-bg-hover);}
-.dls-btn.dls-primary{background:var(--dsw-alias-brand-primary);color:var(--dsw-alias-label-primary-foreground);}
-.dls-btn.dls-primary:hover{filter:brightness(1.08);}
-.dls-btn.dls-danger{color:var(--dsw-alias-state-error-primary);}
-.dls-btn.dls-danger:hover{background:color-mix(in srgb,var(--dsw-alias-state-error-primary) 10%,transparent);}
-.dls-btn:disabled{opacity:.5;cursor:default;}
-.dls-url-row{display:flex;align-items:center;gap:6px;min-width:0;line-height:1.5;}
-.dls-addr{font-size:10px;font-weight:600;font-variant-numeric:tabular-nums;color:var(--dsw-alias-brand-primary);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;cursor:pointer;text-decoration:none;}
-.dls-addr:hover{opacity:.85;}
-.dls-copy{display:inline-flex;align-items:center;gap:3px;font-size:10px;color:var(--dsw-alias-label-secondary);cursor:pointer;border:none;background:transparent;padding:0;font-family:inherit;flex:none;}
-.dls-copy:hover{color:var(--dsw-alias-brand-primary);}
-.dls-copy svg{display:block;}
-.dls-ok{color:var(--dsw-alias-state-success-primary);}
-.dls-empty{font-size:10px;color:var(--dsw-alias-label-secondary);line-height:1.6;padding:2px 1px;}
-.dls-err{font-size:10px;color:var(--dsw-alias-state-error-primary);line-height:1.5;word-break:break-all;}
-.dls-connecting{font-size:10px;color:var(--dsw-alias-label-secondary);padding:2px 1px;}
+.dls_editname{flex:1;min-width:0;background:transparent;border:1px solid var(--dsw-alias-brand-primary);border-radius:var(--vk-r-xs);color:var(--dsw-alias-label-primary);font-size:var(--vk-fs-xs);font-family:inherit;padding:0 4px;height:18px;box-sizing:border-box;outline:none;}
+.dls_ren{border:none;background:transparent;color:var(--dsw-alias-label-secondary);cursor:pointer;padding:1px 2px;border-radius:var(--vk-r-xs);display:inline-flex;align-items:center;flex:none;}
+.dls_ren:hover{color:var(--dsw-alias-brand-primary);}
+.dls_ren svg{display:block;}
+.dls_btn{border:none;background:transparent;color:var(--dsw-alias-brand-primary);cursor:pointer;font-size:var(--vk-fs-xs);padding:1px 7px;border-radius:var(--vk-r-sm);font-family:inherit;line-height:1.5;flex:none;height:18px;}
+.dls_btn:hover{background:var(--dsw-alias-interactive-bg-hover);}
+.dls_btn.dls_primary{background:var(--dsw-alias-brand-primary);color:var(--dsw-alias-label-primary-foreground);}
+.dls_btn.dls_primary:hover{filter:brightness(1.08);}
+.dls_btn.dls_danger{color:var(--dsw-alias-state-error-primary);}
+.dls_btn.dls_danger:hover{background:color-mix(in srgb,var(--dsw-alias-state-error-primary) 10%,transparent);}
+.dls_btn:disabled{opacity:.5;cursor:default;}
+.dls_url_row{display:flex;align-items:center;gap:6px;min-width:0;line-height:1.5;}
+.dls_addr{font-size:10px;font-weight:600;font-variant-numeric:tabular-nums;color:var(--dsw-alias-brand-primary);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;cursor:pointer;text-decoration:none;}
+.dls_addr:hover{opacity:.85;}
+.dls_copy{display:inline-flex;align-items:center;gap:3px;font-size:10px;color:var(--dsw-alias-label-secondary);cursor:pointer;border:none;background:transparent;padding:0;font-family:inherit;flex:none;}
+.dls_copy:hover{color:var(--dsw-alias-brand-primary);}
+.dls_copy svg{display:block;}
+.dls_ok{color:var(--dsw-alias-state-success-primary);}
+.dls_empty{font-size:10px;color:var(--dsw-alias-label-secondary);line-height:1.6;padding:2px 1px;}
+.dls_err{font-size:10px;color:var(--dsw-alias-state-error-primary);line-height:1.5;word-break:break-all;}
+.dls_connecting{font-size:10px;color:var(--dsw-alias-label-secondary);padding:2px 1px;}
 `;
 
     function svgIcon(d, size, fill) {
@@ -161,41 +162,41 @@ window.__ModuleLoader__.load({
       const services = (view && view.services) || [];
       const anyRunning = services.some((s) => s.running);
 
-      return h('div', { className: 'dls-dock' },
-        h('div', { className: 'dls-row1' },
-          h('span', { className: anyRunning ? 'dls-dot' : 'dls-dot-off', title: anyRunning ? '有服务在运行' : '无服务在运行' }),
-          h('span', { className: 'dls-title', title: open ? '点击收起' : '点击展开', onClick: () => setOpen(!open) },
+      return h('div', { className: 'dls_dock' },
+        h('div', { className: 'dls_row1' },
+          h('span', { className: anyRunning ? 'dls_dot' : 'dls_dot_off', title: anyRunning ? '有服务在运行' : '无服务在运行' }),
+          h('span', { className: 'dls_title', title: open ? '点击收起' : '点击展开', onClick: () => setOpen(!open) },
             h(ServerIcon), '局域网服务'),
-          h('span', { className: 'dls-cnt' }, view ? (view.runningCount || 0) + ' 运行中' : '…'),
-          h('button', { type: 'button', className: 'dls-ibar', title: '刷新', onClick: () => refresh(false), 'aria-label': '刷新' }, h(RefreshIcon)),
-          h('button', { type: 'button', className: 'dls-ibar', title: open ? '收起' : '展开', onClick: () => setOpen(!open), 'aria-label': open ? '收起' : '展开', 'aria-expanded': open }, h(ChevronIcon, { up: open })),
+          h('span', { className: 'dls_cnt' }, view ? (view.runningCount || 0) + ' 运行中' : '…'),
+          h('button', { type: 'button', className: 'dls_ibar', title: '刷新', onClick: () => refresh(false), 'aria-label': '刷新' }, h(RefreshIcon)),
+          h('button', { type: 'button', className: 'dls_ibar', title: open ? '收起' : '展开', onClick: () => setOpen(!open), 'aria-label': open ? '收起' : '展开', 'aria-expanded': open }, h(ChevronIcon, { up: open })),
         ),
-        h('div', { className: 'dls-collapse' + (open ? ' dls-open' : '') },
-          h('div', { className: 'dls-collapse-inner' },
-            err ? h('div', { className: 'dls-err' }, err) : null,
-            loading && !services.length ? h('div', { className: 'dls-connecting' }, '探测中…') : null,
-            !loading && !services.length && !err ? h('div', { className: 'dls-empty', title: '探测 3090~3099 端口：复习网站 server.cjs 跑起来后会自动出现在这里，停止后仍保留、可一键重启' }, '3090~3099 未发现服务') : null,
-            h('div', { className: 'dls-list' },
+        h('div', { className: 'dls_collapse' + (open ? ' dls_open' : '') },
+          h('div', { className: 'dls_collapse_inner' },
+            err ? h('div', { className: 'dls_err' }, err) : null,
+            loading && !services.length ? h('div', { className: 'dls_connecting' }, '探测中…') : null,
+            !loading && !services.length && !err ? h('div', { className: 'dls_empty', title: '探测 3090~3099 端口：复习网站 server.cjs 跑起来后会自动出现在这里，停止后仍保留、可一键重启' }, '3090~3099 未发现服务') : null,
+            h('div', { className: 'dls_list' },
               services.map((svc) => {
                 const busy = busyPort === svc.port;
                 const editing = editPort === svc.port;
-                return h('div', { key: svc.port, className: 'dls-svc' },
-                  h('div', { className: 'dls-svc-h' },
+                return h('div', { key: svc.port, className: 'dls_svc' },
+                  h('div', { className: 'dls_svc_h' },
                     editing
-                      ? h('input', { className: 'dls-editname', autoFocus: true, value: editVal, onChange: (e) => setEditVal(e.target.value), onBlur: () => commitRename(svc.port), onKeyDown: (e) => { if (e.key === 'Enter') commitRename(svc.port); if (e.key === 'Escape') setEditPort(null); } })
-                      : h('span', { className: 'dls-svc-name', title: '点击改名：' + svc.title, onClick: () => beginRename(svc) },
-                          h('span', { className: svc.running ? 'dls-dot' : 'dls-dot-off' }),
+                      ? h('input', { className: 'dls_editname', autoFocus: true, value: editVal, onChange: (e) => setEditVal(e.target.value), onBlur: () => commitRename(svc.port), onKeyDown: (e) => { if (e.key === 'Enter') commitRename(svc.port); if (e.key === 'Escape') setEditPort(null); } })
+                      : h('span', { className: 'dls_svc_name', title: '点击改名：' + svc.title, onClick: () => beginRename(svc) },
+                          h('span', { className: svc.running ? 'dls_dot' : 'dls_dot_off' }),
                           h('span', { style: { minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis' } }, svc.title),
-                          h('span', { className: 'dls-ren', onClick: (e) => { e.stopPropagation(); beginRename(svc); }, title: '改名', 'aria-label': '改名' }, h(PencilIcon))),
+                          h('span', { className: 'dls_ren', onClick: (e) => { e.stopPropagation(); beginRename(svc); }, title: '改名', 'aria-label': '改名' }, h(PencilIcon))),
                     svc.running
-                      ? h('button', { type: 'button', className: 'dls-btn dls-danger', disabled: busy, onClick: () => toggle(svc.port, false) }, busy ? '…' : '停止')
-                      : h('button', { type: 'button', className: 'dls-btn dls-primary', disabled: busy || !svc.canStart, title: svc.canStart ? '' : '未记录启动路径：先手动运行一次该服务', onClick: () => toggle(svc.port, true) }, busy ? '…' : '启动'),
+                      ? h('button', { type: 'button', className: 'dls_btn dls_danger', disabled: busy, onClick: () => toggle(svc.port, false) }, busy ? '…' : '停止')
+                      : h('button', { type: 'button', className: 'dls_btn dls_primary', disabled: busy || !svc.canStart, title: svc.canStart ? '' : '未记录启动路径：先手动运行一次该服务', onClick: () => toggle(svc.port, true) }, busy ? '…' : '启动'),
                   ),
                   svc.mainUrl
-                    ? h('div', { className: 'dls-url-row' },
-                        h('a', { className: 'dls-addr', href: svc.mainUrl, target: '_blank', rel: 'noreferrer', title: '在浏览器打开：' + svc.mainUrl }, svc.mainUrl.replace(/^https?:\/\//, '')),
-                        h('button', { type: 'button', className: 'dls-copy', onClick: () => onCopy(svc.port, svc.mainUrl), title: '复制地址' },
-                          copiedPort === svc.port ? h(React.Fragment, null, h('span', { className: 'dls-ok' }, h(CheckIcon)), '已复制') : h(CopyIcon)),
+                    ? h('div', { className: 'dls_url_row' },
+                        h('a', { className: 'dls_addr', href: svc.mainUrl, target: '_blank', rel: 'noreferrer', title: '在浏览器打开：' + svc.mainUrl }, svc.mainUrl.replace(/^https?:\/\//, '')),
+                        h('button', { type: 'button', className: 'dls_copy', onClick: () => onCopy(svc.port, svc.mainUrl), title: '复制地址' },
+                          copiedPort === svc.port ? h(React.Fragment, null, h('span', { className: 'dls_ok' }, h(CheckIcon)), '已复制') : h(CopyIcon)),
                       )
                     : null,
                 );
