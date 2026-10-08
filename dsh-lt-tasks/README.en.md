@@ -1,6 +1,6 @@
 # dsh-lt-tasks
 
-> This branch is the **vk build**: vk slots only, and [dsh-vk-suite](https://github.com/Ln1m/dsh-vk-suite) (contract + layout) must be installed first. The vk-free build is on the [official branch](https://github.com/Ln1m/dsh-lt-tasks/tree/official).
+> This branch is the **vk-free build**: official slots only, no vk slot references; identical behaviour with or without dsh-vk-suite. The vk build is on the [main branch](https://github.com/Ln1m/dsh-lt-tasks/tree/main).
 
 Multi-window, long-running task management plugin for [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness).
 
@@ -25,7 +25,7 @@ A task is a persistent folder (11 archived documents + a handoff document + a lo
 - **References you can keep adding**: pass `refs` when creating a task, then extend or refresh any time with `add_refs` — it clears the old read-only attribute before copying, so files can be updated. Directories over 200 files or 100 MB are only registered by absolute path, not copied. Everything copied into `refs/` is locked with the Windows read-only attribute.
 - **Directory index**: `index.md` records artifact paths + Markdown headings, so you can jump straight to a section; the references section of `notes.md` lists `refs/`.
 - **Progress tracking**: tasklist checkboxes auto-count done/total.
-- **Frontend view**: a "Tasks" tab in the left sidebar (`vk.sidebar.tasks`, dsh-vk-suite required) — grouped collapsible list, search, slide-in detail drawer, inline editing (including reference notes and the frozen-entry count), status dropdown.
+- **Frontend view**: a task view in the left sidebar (official `sidebar.panellist` icon + `main` centre panel) — grouped collapsible list, search, slide-in detail drawer, inline editing (including reference notes and the frozen-entry count), status dropdown.
 - **Task↔session link**: advancing records the session; opening a task detail auto-opens that conversation.
 - **Composer prefill**: the "＋" new-task button and the detail "＋ new chat" button prefill a hint into the composer (`请帮我新建一个长期任务：` / `推进长期任务 xxx`) without auto-sending.
 - **Self-growth**: on completion, generates an archive suggestion for confirmation before writing to skills.

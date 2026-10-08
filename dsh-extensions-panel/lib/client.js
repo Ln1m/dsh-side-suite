@@ -1,6 +1,6 @@
-// vk 版：只注册 vk 槽，需先装 dsh-vk-suite（契约 + 骨架）。零 vk 版见 official 分支。
+// 公开版：只注册官方槽，不引用任何 vk 槽。装不装 dsh-vk-suite 行为一致。
 // dsh-extensions-panel —— Client 半端。
-// 入口：左栏「功能」Tab（vk.sidebar.extensions 槽，由 dsh-vk-layout 声明）。
+// 入口：官方 sidebar.panellist + main（左栏图标与中央面板同一个 id 配对）。
 // 卡片 UI 与「移动端访问」同款（圆点 + 标题 + 开关 + 刷新 + 折叠箭头），样式 token 全部走主题变量，深浅色自适应。
 
 window.__ModuleLoader__.load({
@@ -11,51 +11,6 @@ window.__ModuleLoader__.load({
     Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
     var React = require('react');
     const h = React.createElement;
-
-    const ctxRef = { current: null };
-    /* 外链的去处按可用性排，一律不弹外壳悬浮窗：
-       ① 我们那只右栏浏览器（dsh-embedded-browser，挂载期间留了全局把手）→ 直接导航；
-       ② 没挂着就请右栏把那一页打开，再多等几帧；
-       ③ 我们的包不在（openTab 抛「没有类型认领」）→ 官方「浏览器」页
-          （@deepseek-ai/dsh-client-ui-sidebar-browser，kind=browser，地址从 tab.navigation.params.url 进）；
-       ④ 三条都不通才什么都不开。 */
-    const EMBED_KIND = 'dsh-embedded-browser';
-    const OFFICIAL_BROWSER_KIND = 'browser';
-    /* 面板还没挂上时把请求放这儿：dsh-embedded-browser 挂好全局把手后第一件事就是取走它。
-       两边都认这个槽，就不看谁先 mount，也不用盲等几秒。 */
-    const EMBED_PENDING = '__DSH_EMBED_PENDING__';
-    function embedHook() {
-      const hook = typeof window === 'undefined' ? undefined : window.__DSH_EMBED_OPEN__;
-      return typeof hook === 'function' ? hook : null;
-    }
-    function openTabSafely(kind, options) {
-      try {
-        const ctx = ctxRef.current;
-        const right = ctx === null || ctx === undefined ? null : ctx.get('sidebarRight');
-        if (right === null || right === undefined || typeof right.openTab !== 'function') return false;
-        right.openTab(kind, options);
-        return true;
-      } catch { return false; }
-    }
-    function takePending(url) {
-      try { if (globalThis[EMBED_PENDING] === url) globalThis[EMBED_PENDING] = null; } catch { /* ignore */ }
-    }
-    function openInPane(url) {
-      const hook = embedHook();
-      if (hook !== null) { try { hook(url); return; } catch { /* 落到下面的等待 */ } }
-      if (!openTabSafely(EMBED_KIND)) { openTabSafely(OFFICIAL_BROWSER_KIND, { params: { url } }); return; }
-      try { globalThis[EMBED_PENDING] = url; } catch { /* 没有 globalThis 就只靠下面的等待 */ }
-      let left = 60;
-      const tick = () => {
-        const fn = embedHook();
-        if (fn !== null) { takePending(url); try { fn(url); } catch { /* ignore */ } return; }
-        left -= 1;
-        if (left > 0) { setTimeout(tick, 100); return; }
-        takePending(url);
-        openTabSafely(OFFICIAL_BROWSER_KIND, { params: { url } });
-      };
-      setTimeout(tick, 100);
-    }
 
     function insertStyles(css) {
       try {
@@ -71,40 +26,39 @@ window.__ModuleLoader__.load({
     const POLL_MS = 20000;
 
     const CSS = `
-body{--vk-accent:var(--dsw-alias-accent,var(--dsw-alias-state-business-primary));--vk-accent-ring:color-mix(in srgb,var(--vk-accent) 22%,transparent);--vk-accent-soft:color-mix(in srgb,var(--vk-accent) 12%,transparent);--vk-ok:#73c991;--vk-danger:var(--dsw-alias-state-error-primary,#f14c4c);--vk-danger-soft:color-mix(in srgb,var(--vk-danger) 35%,transparent);--vk-fg:var(--dsw-alias-label-primary);--vk-fg2:var(--dsw-alias-label-secondary);--vk-fg3:var(--dsw-alias-label-tertiary);--vk-line:var(--dsw-alias-border-l1);--vk-line2:var(--dsw-alias-border-l2);--vk-bg-hover:var(--dsw-alias-interactive-bg-hover);--vk-r-xs:4px;--vk-r-sm:6px;--vk-r-md:8px;--vk-r-lg:12px;--vk-r-pill:999px;--vk-fs-xs:11px;--vk-fs-sm:12px;--vk-fs-md:13px;--vk-fs-lg:14px;--vk-dur:.12s;--vk-ease:cubic-bezier(.2,.7,.3,1);--vk-fade:background-color var(--vk-dur) var(--vk-ease),color var(--vk-dur) var(--vk-ease),border-color var(--vk-dur) var(--vk-ease),opacity var(--vk-dur) var(--vk-ease);--vk-ring:0 0 0 2px var(--vk-accent-ring);}
-.dxp_dock{box-sizing:border-box;width:100%;border-top:1px solid var(--dsw-alias-border-l1);background:var(--dsw-specific-sidebar-fill);display:flex;flex-direction:column;padding:6px 10px 8px;font-size:var(--vk-fs-xs);color:var(--dsw-alias-label-primary);position:relative;}
-.dxp_row1{display:flex;align-items:center;gap:6px;min-height:22px;flex:none;min-width:0;}
-.dxp_title{font-weight:600;font-size:var(--vk-fs-xs);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-flex;align-items:center;gap:5px;cursor:pointer;user-select:none;}
-.dxp_dot{width:8px;height:8px;border-radius:50%;background:var(--dsw-alias-state-warn-primary);flex:none;}
-.dxp_dot_ok{width:8px;height:8px;border-radius:50%;background:var(--dsw-alias-state-success-primary);flex:none;}
-.dxp_dot_err{width:8px;height:8px;border-radius:50%;background:var(--dsw-alias-state-error-primary);flex:none;}
-.dxp_btn{border:none;background:transparent;color:var(--dsw-alias-brand-primary);cursor:pointer;font-size:var(--vk-fs-xs);padding:1px 7px;border-radius:var(--vk-r-sm);font-family:inherit;line-height:1.4;flex:none;}
-.dxp_btn:hover{background:var(--dsw-alias-interactive-bg-hover);}
-.dxp_btn.dxp_primary{background:var(--dsw-alias-brand-primary);color:var(--dsw-alias-label-primary-foreground);}
-.dxp_btn.dxp_primary:hover{filter:brightness(1.08);}
-.dxp_btn.dxp_danger{color:var(--dsw-alias-state-error-primary);}
-.dxp_btn.dxp_danger:hover{background:color-mix(in srgb,var(--dsw-alias-state-error-primary) 10%,transparent);}
-.dxp_ibar{width:20px;height:20px;border-radius:var(--vk-r-sm);border:none;background:transparent;color:var(--dsw-alias-label-secondary);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;flex:none;padding:0;}
-.dxp_ibar:hover{background:var(--dsw-alias-interactive-bg-hover);color:var(--dsw-alias-label-primary);}
-.dxp_ibar svg{display:block;}
-.dxp_collapse{display:grid;grid-template-rows:0fr;transition:grid-template-rows .25s ease;}
-.dxp_collapse.dxp_open{grid-template-rows:1fr;}
-.dxp_collapse_inner{overflow:hidden;min-height:0;display:flex;flex-direction:column;gap:3px;padding-top:3px;opacity:0;transition:opacity .18s ease;}
-.dxp_collapse.dxp_open .dxp_collapse_inner{opacity:1;}
-.dxp_row2{display:flex;align-items:center;gap:6px;min-width:0;line-height:1.5;flex:none;}
-.dxp_hint{font-size:10px;color:var(--dsw-alias-label-secondary);line-height:1.6;}
-.dxp_ok{color:var(--dsw-alias-state-success-primary);}
-.dxp_err{color:var(--dsw-alias-state-error-primary);font-size:10px;line-height:1.5;word-break:break-all;}
-.dxp_note{font-size:10px;color:var(--dsw-alias-label-secondary);line-height:1.6;border-top:1px dashed var(--dsw-alias-border-l1);padding-top:4px;margin-top:2px;}
-.dxp_addr{font-size:10px;font-weight:600;font-variant-numeric:tabular-nums;color:var(--dsw-alias-brand-primary);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;cursor:pointer;text-decoration:none;border-bottom:1px dashed color-mix(in srgb,var(--dsw-alias-brand-primary) 45%,transparent);background:0 0;border:none;padding:0;font-family:inherit;text-align:left;}
-.dxp_addr:hover{opacity:.85;}
-.dxp_copy{display:inline-flex;align-items:center;gap:3px;font-size:10px;color:var(--dsw-alias-label-secondary);cursor:pointer;border:none;background:transparent;padding:0;font-family:inherit;flex:none;}
-.dxp_copy:hover{color:var(--dsw-alias-brand-primary);}
-.dxp_copy svg{display:block;}
-.dxp_qrwrap{display:flex;flex-direction:column;align-items:center;gap:4px;padding-top:3px;}
-.dxp_qr{width:100%;max-width:190px;height:auto;border-radius:var(--vk-r-sm);background:#fff;padding:4px;box-sizing:border-box;}
-.dxp_agree{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--dsw-alias-label-secondary);cursor:pointer;line-height:1.6;user-select:none;}
-.dxp_agree input{width:12px;height:12px;margin:0;flex:none;cursor:pointer;}
+.dxp-dock{box-sizing:border-box;width:100%;border-top:1px solid var(--dsw-alias-border-l1);background:var(--dsw-specific-sidebar-fill);display:flex;flex-direction:column;padding:6px 10px 8px;font-size:11px;color:var(--dsw-alias-label-primary);position:relative;}
+.dxp-row1{display:flex;align-items:center;gap:6px;min-height:22px;flex:none;min-width:0;}
+.dxp-title{font-weight:600;font-size:11px;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-flex;align-items:center;gap:5px;cursor:pointer;user-select:none;}
+.dxp-dot{width:8px;height:8px;border-radius:50%;background:var(--dsw-alias-state-warn-primary);flex:none;}
+.dxp-dot-ok{width:8px;height:8px;border-radius:50%;background:var(--dsw-alias-state-success-primary);flex:none;}
+.dxp-dot-err{width:8px;height:8px;border-radius:50%;background:var(--dsw-alias-state-error-primary);flex:none;}
+.dxp-btn{border:none;background:transparent;color:var(--dsw-alias-brand-primary);cursor:pointer;font-size:11px;padding:1px 7px;border-radius:6px;font-family:inherit;line-height:1.4;flex:none;}
+.dxp-btn:hover{background:var(--dsw-alias-interactive-bg-hover);}
+.dxp-btn.dxp-primary{background:var(--dsw-alias-brand-primary);color:var(--dsw-alias-label-primary-foreground);}
+.dxp-btn.dxp-primary:hover{filter:brightness(1.08);}
+.dxp-btn.dxp-danger{color:var(--dsw-alias-state-error-primary);}
+.dxp-btn.dxp-danger:hover{background:color-mix(in srgb,var(--dsw-alias-state-error-primary) 10%,transparent);}
+.dxp-ibar{width:20px;height:20px;border-radius:6px;border:none;background:transparent;color:var(--dsw-alias-label-secondary);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;flex:none;padding:0;}
+.dxp-ibar:hover{background:var(--dsw-alias-interactive-bg-hover);color:var(--dsw-alias-label-primary);}
+.dxp-ibar svg{display:block;}
+.dxp-collapse{display:grid;grid-template-rows:0fr;transition:grid-template-rows .25s ease;}
+.dxp-collapse.dxp-open{grid-template-rows:1fr;}
+.dxp-collapse-inner{overflow:hidden;min-height:0;display:flex;flex-direction:column;gap:3px;padding-top:3px;opacity:0;transition:opacity .18s ease;}
+.dxp-collapse.dxp-open .dxp-collapse-inner{opacity:1;}
+.dxp-row2{display:flex;align-items:center;gap:6px;min-width:0;line-height:1.5;flex:none;}
+.dxp-hint{font-size:10px;color:var(--dsw-alias-label-secondary);line-height:1.6;}
+.dxp-ok{color:var(--dsw-alias-state-success-primary);}
+.dxp-err{color:var(--dsw-alias-state-error-primary);font-size:10px;line-height:1.5;word-break:break-all;}
+.dxp-note{font-size:10px;color:var(--dsw-alias-label-secondary);line-height:1.6;border-top:1px dashed var(--dsw-alias-border-l1);padding-top:4px;margin-top:2px;}
+.dxp-addr{font-size:10px;font-weight:600;font-variant-numeric:tabular-nums;color:var(--dsw-alias-brand-primary);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;cursor:pointer;text-decoration:none;border-bottom:1px dashed color-mix(in srgb,var(--dsw-alias-brand-primary) 45%,transparent);}
+.dxp-addr:hover{opacity:.85;}
+.dxp-copy{display:inline-flex;align-items:center;gap:3px;font-size:10px;color:var(--dsw-alias-label-secondary);cursor:pointer;border:none;background:transparent;padding:0;font-family:inherit;flex:none;}
+.dxp-copy:hover{color:var(--dsw-alias-brand-primary);}
+.dxp-copy svg{display:block;}
+.dxp-qrwrap{display:flex;flex-direction:column;align-items:center;gap:4px;padding-top:3px;}
+.dxp-qr{width:100%;max-width:190px;height:auto;border-radius:6px;background:#fff;padding:4px;box-sizing:border-box;}
+.dxp-agree{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--dsw-alias-label-secondary);cursor:pointer;line-height:1.6;user-select:none;}
+.dxp-agree input{width:12px;height:12px;margin:0;flex:none;cursor:pointer;}
 `;
 
     function svgIcon(d, size) {
@@ -145,32 +99,32 @@ body{--vk-accent:var(--dsw-alias-accent,var(--dsw-alias-state-business-primary))
       const device = (view && view.device) || 'unknown';
       const installed = device === 'installed';
       const extended = !!(view && view.extended);
-      const dotCls = device === 'installed' ? (extended ? 'dxp_dot_ok' : 'dxp_dot') : (device === 'absent' ? 'dxp_dot_err' : 'dxp_dot');
+      const dotCls = device === 'installed' ? (extended ? 'dxp-dot-ok' : 'dxp-dot') : (device === 'absent' ? 'dxp-dot-err' : 'dxp-dot');
 
       const statusRow = !view
-        ? h('div', { className: 'dxp_hint' }, '读取中…')
+        ? h('div', { className: 'dxp-hint' }, '读取中…')
         : device === 'absent'
-          ? h('div', { className: 'dxp_hint' }, '未检测到虚拟显示器驱动')
+          ? h('div', { className: 'dxp-hint' }, '未检测到虚拟显示器驱动')
           : device === 'disabled'
-            ? h('div', { className: 'dxp_hint' }, '虚拟显示器已停用')
-            : h('div', { className: 'dxp_hint' }, extended ? '虚拟屏已参与桌面（扩展模式）' : '虚拟屏未参与桌面（仅电脑屏幕）');
+            ? h('div', { className: 'dxp-hint' }, '虚拟显示器已停用')
+            : h('div', { className: 'dxp-hint' }, extended ? '虚拟屏已参与桌面（扩展模式）' : '虚拟屏未参与桌面（仅电脑屏幕）');
 
-      return h('div', { className: 'dxp_dock' },
-        h('div', { className: 'dxp_row1' },
+      return h('div', { className: 'dxp-dock' },
+        h('div', { className: 'dxp-row1' },
           h('span', { className: cls(dotCls) }),
-          h('span', { className: 'dxp_title', title: open ? '点击收起' : '点击展开', onClick: () => setOpen(!open) }, h(DisplayIcon), '虚拟显示器'),
+          h('span', { className: 'dxp-title', title: open ? '点击收起' : '点击展开', onClick: () => setOpen(!open) }, h(DisplayIcon), '虚拟显示器'),
           device === 'installed'
             ? (extended
-              ? h('button', { type: 'button', className: 'dxp_btn dxp_danger', disabled: busy, onClick: () => toggle(false) }, busy ? '…' : '停用')
-              : h('button', { type: 'button', className: 'dxp_btn dxp_primary', disabled: busy, onClick: () => toggle(true) }, busy ? '…' : '启用'))
+              ? h('button', { type: 'button', className: 'dxp-btn dxp-danger', disabled: busy, onClick: () => toggle(false) }, busy ? '…' : '停用')
+              : h('button', { type: 'button', className: 'dxp-btn dxp-primary', disabled: busy, onClick: () => toggle(true) }, busy ? '…' : '启用'))
             : null,
-          h('button', { type: 'button', className: 'dxp_ibar', title: '刷新状态', onClick: refresh, 'aria-label': '刷新' }, h(RefreshIcon)),
-          h('button', { type: 'button', className: 'dxp_ibar', title: open ? '收起' : '展开', onClick: () => setOpen(!open), 'aria-label': open ? '收起' : '展开', 'aria-expanded': open }, h(ChevronIcon, { up: open })),
+          h('button', { type: 'button', className: 'dxp-ibar', title: '刷新状态', onClick: refresh, 'aria-label': '刷新' }, h(RefreshIcon)),
+          h('button', { type: 'button', className: 'dxp-ibar', title: open ? '收起' : '展开', onClick: () => setOpen(!open), 'aria-label': open ? '收起' : '展开', 'aria-expanded': open }, h(ChevronIcon, { up: open })),
         ),
-        h('div', { className: 'dxp_collapse' + (open ? ' dxp_open' : '') },
-          h('div', { className: 'dxp_collapse_inner' },
-            h('div', { className: 'dxp_row2' }, statusRow),
-            h('div', { className: 'dxp_note' }, '开关只切显示模式（等同 Win+P），不碰显示设备——实测禁用/启用该设备会导致蓝屏。'),
+        h('div', { className: 'dxp-collapse' + (open ? ' dxp-open' : '') },
+          h('div', { className: 'dxp-collapse-inner' },
+            h('div', { className: 'dxp-row2' }, statusRow),
+            h('div', { className: 'dxp-note' }, '开关只切显示模式（等同 Win+P），不碰显示设备——实测禁用/启用该设备会导致蓝屏。'),
           ),
         ),
       );
@@ -273,47 +227,47 @@ body{--vk-accent:var(--dsw-alias-accent,var(--dsw-alias-state-business-primary))
       const running = !!(st && st.tunnelRunning);
       const lanOn = !!(st && st.lanEnabled);
       const pending = phase === 'downloading' || phase === 'starting' || phase === 'registering';
-      const dotCls = !st ? 'dxp_dot' : (running ? 'dxp_dot_ok' : (st.proxyRunning ? 'dxp_dot' : 'dxp_dot_err'));
+      const dotCls = !st ? 'dxp-dot' : (running ? 'dxp-dot-ok' : (st.proxyRunning ? 'dxp-dot' : 'dxp-dot-err'));
       const lanUrl = (st && st.lanUrl) || '';
       const tunnelUrl = (st && st.tunnelUrl) || '';
       const tunnelQr = (st && st.tunnelQr) || '';
 
-      const copyBtn = (key, text) => h('button', { type: 'button', className: 'dxp_copy', onClick: () => doCopy(key, text) }, h(copied === key ? CheckIcon : CopyIcon), copied === key ? '已复制' : '复制');
-      const switchBtn = (on, onClick, disabled) => h('button', { type: 'button', className: 'dxp_btn ' + (on ? 'dxp_danger' : 'dxp_primary'), disabled: disabled, onClick: onClick }, disabled ? '…' : (on ? '关闭' : '开启'));
-      const label = (text) => h('span', { className: 'dxp_hint', style: { flex: 'none', width: '48px' } }, text);
+      const copyBtn = (key, text) => h('button', { type: 'button', className: 'dxp-copy', onClick: () => doCopy(key, text) }, h(copied === key ? CheckIcon : CopyIcon), copied === key ? '已复制' : '复制');
+      const switchBtn = (on, onClick, disabled) => h('button', { type: 'button', className: 'dxp-btn ' + (on ? 'dxp-danger' : 'dxp-primary'), disabled: disabled, onClick: onClick }, disabled ? '…' : (on ? '关闭' : '开启'));
+      const label = (text) => h('span', { className: 'dxp-hint', style: { flex: 'none', width: '48px' } }, text);
 
-      return h('div', { className: 'dxp_dock' },
-        h('div', { className: 'dxp_row1' },
+      return h('div', { className: 'dxp-dock' },
+        h('div', { className: 'dxp-row1' },
           h('span', { className: cls(dotCls) }),
-          h('span', { className: 'dxp_title', title: open ? '点击收起' : '点击展开', onClick: () => setOpen(!open) }, h(PhoneIcon), '移动端访问'),
-          h('button', { type: 'button', className: 'dxp_ibar', title: '刷新状态', onClick: pull, 'aria-label': '刷新' }, h(RefreshIcon)),
-          h('button', { type: 'button', className: 'dxp_ibar', title: open ? '收起' : '展开', onClick: () => setOpen(!open), 'aria-label': open ? '收起' : '展开', 'aria-expanded': open }, h(ChevronIcon, { up: open })),
+          h('span', { className: 'dxp-title', title: open ? '点击收起' : '点击展开', onClick: () => setOpen(!open) }, h(PhoneIcon), '移动端访问'),
+          h('button', { type: 'button', className: 'dxp-ibar', title: '刷新状态', onClick: pull, 'aria-label': '刷新' }, h(RefreshIcon)),
+          h('button', { type: 'button', className: 'dxp-ibar', title: open ? '收起' : '展开', onClick: () => setOpen(!open), 'aria-label': open ? '收起' : '展开', 'aria-expanded': open }, h(ChevronIcon, { up: open })),
         ),
-        h('div', { className: 'dxp_collapse' + (open ? ' dxp_open' : '') },
-          h('div', { className: 'dxp_collapse_inner' },
-            h('div', { className: 'dxp_row2' },
+        h('div', { className: 'dxp-collapse' + (open ? ' dxp-open' : '') },
+          h('div', { className: 'dxp-collapse-inner' },
+            h('div', { className: 'dxp-row2' },
               label('局域网'),
               switchBtn(lanOn, toggleLan, !st || busy),
             ),
-            h('div', { className: 'dxp_row2' },
-              lanUrl ? h('button', { type: 'button', className: 'dxp_addr', title: '在拓展栏浏览器打开 ' + lanUrl, onClick: () => openInPane(lanUrl) }, lanUrl) : h('span', { className: 'dxp_hint' }, '未就绪'),
+            h('div', { className: 'dxp-row2' },
+              lanUrl ? h('a', { className: 'dxp-addr', href: lanUrl, target: '_blank', rel: 'noreferrer', title: lanUrl }, lanUrl) : h('span', { className: 'dxp-hint' }, '未就绪'),
               lanUrl ? copyBtn('lan', lanUrl) : null,
             ),
-            h('div', { className: 'dxp_row2' },
+            h('div', { className: 'dxp-row2' },
               label('公网服务'),
               switchBtn(running, toggleTunnel, !st || busy || pending || (!running && !agree)),
             ),
-            !running ? h('label', { className: 'dxp_agree' },
+            !running ? h('label', { className: 'dxp-agree' },
               h('input', { type: 'checkbox', checked: agree, onChange: (e) => setAgree(!!(e.target && e.target.checked)) }),
               '我已知情',
             ) : null,
-            h('div', { className: 'dxp_row2' },
-              tunnelUrl ? h('button', { type: 'button', className: 'dxp_addr', title: '在拓展栏浏览器打开 ' + tunnelUrl, onClick: () => openInPane(tunnelUrl) }, tunnelUrl) : h('span', { className: 'dxp_hint' }, POCKET_PHASE[phase] || '未开启'),
+            h('div', { className: 'dxp-row2' },
+              tunnelUrl ? h('a', { className: 'dxp-addr', href: tunnelUrl, target: '_blank', rel: 'noreferrer', title: tunnelUrl }, tunnelUrl) : h('span', { className: 'dxp-hint' }, POCKET_PHASE[phase] || '未开启'),
               tunnelUrl ? copyBtn('tunnel', tunnelUrl) : null,
             ),
-            tunnelQr ? h('div', { className: 'dxp_row2' }, h('button', { type: 'button', className: 'dxp_btn', onClick: () => setQr(qr === 'tunnel' ? '' : 'tunnel') }, '二维码')) : null,
-            (qr === 'tunnel' && tunnelQr) ? h('div', { className: 'dxp_qrwrap' }, h('img', { className: 'dxp_qr', alt: '公网访问二维码', src: tunnelQr })) : null,
-            err ? h('div', { className: 'dxp_err' }, err) : null,
+            tunnelQr ? h('div', { className: 'dxp-row2' }, h('button', { type: 'button', className: 'dxp-btn', onClick: () => setQr(qr === 'tunnel' ? '' : 'tunnel') }, '二维码')) : null,
+            (qr === 'tunnel' && tunnelQr) ? h('div', { className: 'dxp-qrwrap' }, h('img', { className: 'dxp-qr', alt: '公网访问二维码', src: tunnelQr })) : null,
+            err ? h('div', { className: 'dxp-err' }, err) : null,
           ),
         ),
       );
@@ -328,16 +282,23 @@ body{--vk-accent:var(--dsw-alias-accent,var(--dsw-alias-state-business-primary))
 
     const inject = ['slots'];
     function apply(ctx) {
-      ctxRef.current = ctx;
       insertStyles(CSS);
       const slots = ctx.get('slots');
       if (slots === undefined) return;
-      slots.inject('vk.sidebar.extensions', () => slots.register(
-        { name: 'vk.sidebar.extensions', id: 'dsh-extensions-panel', order: 130, label: '虚拟显示器' },
+      slots.inject('sidebar.panellist', () => slots.register(
+        { name: 'sidebar.panellist', id: 'dsh-extensions-panel', order: 130, label: '虚拟显示器' },
+        (props) => (h('span', { style: { display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: (props && props.size) || 22, height: (props && props.size) || 22 } }, h(DisplayIcon))),
+      ));
+      slots.inject('main', () => slots.register(
+        { name: 'main', key: 'dsh-extensions-panel' },
         () => (h(VddDock)),
       ));
-      slots.inject('vk.sidebar.extensions', () => slots.register(
-        { name: 'vk.sidebar.extensions', id: 'dsh-pocket-dock', order: 140, label: '移动端访问' },
+      slots.inject('sidebar.panellist', () => slots.register(
+        { name: 'sidebar.panellist', id: 'dsh-pocket-dock', order: 140, label: '移动端访问' },
+        (props) => (h('span', { style: { display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: (props && props.size) || 22, height: (props && props.size) || 22 } }, h(PhoneIcon))),
+      ));
+      slots.inject('main', () => slots.register(
+        { name: 'main', key: 'dsh-pocket-dock' },
         () => (h(PocketDock)),
       ));
     }

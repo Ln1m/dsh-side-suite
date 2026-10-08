@@ -1,4 +1,4 @@
-// vk 版：只注册 vk 槽，需先装 dsh-vk-suite（契约 + 骨架）。零 vk 版见 official 分支。
+// 公开版：只注册官方槽，不引用任何 vk 槽。装不装 dsh-vk-suite 行为一致。
 window.__ModuleLoader__.load({
   id: "dsh-lt-tasks",
   factory: (require) => {
@@ -8,30 +8,11 @@ window.__ModuleLoader__.load({
     let react = require("react");
     let ui = require("@deepseek-ai/dsh-client-ui-primitives");
     const h = react.createElement;
-    /* 1.7 起官方 primitives 删掉了带尺寸后缀的图标导出（IconPlusOutline16 / IconCloseFill14 …），
-       直接引用会得到 undefined → h(undefined) 触发 React #130，整个任务 pane 渲染失败（2026-09-29 实测）。
-       三级兜底：新名（无后缀）→ 旧名（带后缀）→ 本地内联 SVG。 */
-    const pickIcon = (names) => {
-      for (const name of names) {
-        try {
-          const found = ui === null || ui === undefined ? undefined : ui[name];
-          if (found !== null && found !== undefined) return found;
-        } catch { /* 换下一个名字 */ }
-      }
-      return null;
-    };
-    const svgIcon = (specs) => function FallbackIcon(props) {
-      const size = props !== null && props !== undefined && props.size !== undefined ? props.size : 16;
-      return h("svg", {
-        viewBox: "0 0 24 24", width: size, height: size, fill: "none", stroke: "currentColor",
-        strokeWidth: 2, strokeLinecap: "round", strokeLinejoin: "round"
-      }, specs.map((spec, i) => h(spec.t, Object.assign({ key: i }, spec.p))));
-    };
-    const IconPlus = pickIcon(["IconPlusOutline", "IconPlusOutline16"]) || svgIcon([{ t: "path", p: { d: "M12 5v14" } }, { t: "path", p: { d: "M5 12h14" } }]);
-    const IconSearch = pickIcon(["IconSearchOutline", "IconSearchOutline16"]) || svgIcon([{ t: "circle", p: { cx: 11, cy: 11, r: 8 } }, { t: "path", p: { d: "m21 21-4.35-4.35" } }]);
-    const IconClose = pickIcon(["IconCloseFill", "IconCloseFill14"]) || svgIcon([{ t: "path", p: { d: "M18 6 6 18" } }, { t: "path", p: { d: "m6 6 12 12" } }]);
-    const IconTrash = pickIcon(["IconTrashOutline", "IconTrashOutline16"]) || svgIcon([{ t: "path", p: { d: "M3 6h18" } }, { t: "path", p: { d: "M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" } }, { t: "path", p: { d: "M10 11v6" } }, { t: "path", p: { d: "M14 11v6" } }]);
-    const IconEdit = pickIcon(["IconEditOutline", "IconEditOutline16"]) || svgIcon([{ t: "path", p: { d: "M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5z" } }]);
+    const IconPlus = ui.IconPlusOutline16;
+    const IconSearch = ui.IconSearchOutline16;
+    const IconClose = ui.IconCloseFill14;
+    const IconTrash = ui.IconTrashOutline16;
+    const IconEdit = ui.IconEditOutline16;
     const Modal = ui.Modal;
     const Button = ui.Button;
     const Frag = react.Fragment;
@@ -56,13 +37,12 @@ window.__ModuleLoader__.load({
     ];
 
     const CSS = `
-@keyframes lt_pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
-body{--vk-accent:var(--dsw-alias-accent,var(--dsw-alias-state-business-primary));--vk-accent-ring:color-mix(in srgb,var(--vk-accent) 22%,transparent);--vk-accent-soft:color-mix(in srgb,var(--vk-accent) 12%,transparent);--vk-ok:#73c991;--vk-danger:var(--dsw-alias-state-error-primary,#f14c4c);--vk-danger-soft:color-mix(in srgb,var(--vk-danger) 35%,transparent);--vk-fg:var(--dsw-alias-label-primary);--vk-fg2:var(--dsw-alias-label-secondary);--vk-fg3:var(--dsw-alias-label-tertiary);--vk-line:var(--dsw-alias-border-l1);--vk-line2:var(--dsw-alias-border-l2);--vk-bg-hover:var(--dsw-alias-interactive-bg-hover);--vk-r-xs:4px;--vk-r-sm:6px;--vk-r-md:8px;--vk-r-lg:12px;--vk-r-pill:999px;--vk-fs-xs:11px;--vk-fs-sm:12px;--vk-fs-md:13px;--vk-fs-lg:14px;--vk-dur:.12s;--vk-ease:cubic-bezier(.2,.7,.3,1);--vk-fade:background-color var(--vk-dur) var(--vk-ease),color var(--vk-dur) var(--vk-ease),border-color var(--vk-dur) var(--vk-ease),opacity var(--vk-dur) var(--vk-ease);--vk-ring:0 0 0 2px var(--vk-accent-ring);}
-.lt_pulse{ animation: lt_pulse 1.6s ease-in-out infinite; }
-.lt_card{ transition: background .2s ease; }
-.lt_card:hover{ background: var(--dsw-alias-interactive-bg-hover, #eef); }
-.lt_group{ transition: background .2s ease; }
-.lt_group:hover{ background: var(--dsw-alias-interactive-bg-hover, #f2f3f5); }
+@keyframes lt-pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+.lt-pulse{ animation: lt-pulse 1.6s ease-in-out infinite; }
+.lt-card{ transition: background .2s ease; }
+.lt-card:hover{ background: var(--dsw-alias-interactive-bg-hover, #eef); }
+.lt-group{ transition: background .2s ease; }
+.lt-group:hover{ background: var(--dsw-alias-interactive-bg-hover, #f2f3f5); }
 `;
 
     async function api(path, opts) {
@@ -114,7 +94,7 @@ body{--vk-accent:var(--dsw-alias-accent,var(--dsw-alias-state-business-primary))
     function StatusDot({ status, pulse }) {
       const m = STATUS_META[status] || { color: "#999" };
       return h("span", {
-        className: pulse ? "lt_pulse" : undefined,
+        className: pulse ? "lt-pulse" : undefined,
         style: { display: "inline-block", width: 8, height: 8, borderRadius: "50%", background: m.color, flex: "none" }
       });
     }
@@ -185,7 +165,7 @@ body{--vk-accent:var(--dsw-alias-accent,var(--dsw-alias-state-business-primary))
         }
       }
       return h("div", {
-        className: "lt_card",
+        className: "lt-card",
         onClick: () => onSelect(task),
         onMouseEnter: () => setHover(true),
         onMouseLeave: () => setHover(false),
@@ -232,7 +212,7 @@ body{--vk-accent:var(--dsw-alias-accent,var(--dsw-alias-state-business-primary))
           const isOpen = open[s];
           return h("div", { key: s },
             h("div", {
-              className: "lt_group",
+              className: "lt-group",
               onClick: () => toggle(s),
               style: { cursor: "pointer", padding: "6px 12px", fontWeight: 600, fontSize: 11.5, borderBottom: "1px solid var(--dsw-alias-border-l1, #eee)", display: "flex", justifyContent: "space-between", alignItems: "center" }
             },
@@ -281,8 +261,8 @@ body{--vk-accent:var(--dsw-alias-accent,var(--dsw-alias-state-business-primary))
       return h("div", {
         style: { border: "1px solid var(--dsw-alias-border-l1, #e5e7eb)", borderRadius: 8, padding: "8px 10px", marginBottom: 8, background: "var(--dsw-alias-bg-base, transparent)" }
       },
-        h("div", { className: "lt_fhead", style: { display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 4, minWidth: 0 } },
-          h("span", { className: "lt_fhead-label", style: { fontWeight: 600, fontSize: 11, color: "#777", minWidth: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" } }, label),
+        h("div", { className: "lt-fhead", style: { display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 4, minWidth: 0 } },
+          h("span", { className: "lt-fhead-label", style: { fontWeight: 600, fontSize: 11, color: "#777", minWidth: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" } }, label),
           isStatus ? h(StatusSelect, {
             value: text,
             onSelect: async (status) => {
@@ -299,7 +279,7 @@ body{--vk-accent:var(--dsw-alias-accent,var(--dsw-alias-state-business-primary))
               ? h("span", { style: { display: "flex", gap: 4 } },
                 h("button", { onClick: save, disabled: saving, style: { fontSize: 11, cursor: "pointer" } }, saving ? "保存中…" : "保存"),
                 h("button", { onClick: cancel, style: { fontSize: 11, cursor: "pointer" } }, "取消"))
-              : h("span", { style: { fontSize: 11, color: "#5b8def", cursor: "pointer", display: "inline-flex", alignItems: "center", gap: 3 }, onClick: startEdit }, h(IconEdit, { size: 12 }), h("span", { className: "lt_edit_text" }, "编辑"))
+              : h("span", { style: { fontSize: 11, color: "#5b8def", cursor: "pointer", display: "inline-flex", alignItems: "center", gap: 3 }, onClick: startEdit }, h(IconEdit, { size: 12 }), h("span", { className: "lt-edit-text" }, "编辑"))
           ) : null
         ),
         editing ? h("textarea", {
@@ -321,7 +301,6 @@ body{--vk-accent:var(--dsw-alias-accent,var(--dsw-alias-state-business-primary))
       const [detail, setDetail] = react.useState(null);
       const [loading, setLoading] = react.useState(true);
       const [error, setError] = react.useState("");
-      const [gone, setGone] = react.useState(false);
 
       const openedRef = react.useRef(null);
       const load = react.useCallback(async (silent) => {
@@ -331,7 +310,7 @@ body{--vk-accent:var(--dsw-alias-accent,var(--dsw-alias-state-business-primary))
           setDetail(res.data);
           if (openedRef.current !== task.id && res.data.meta?.lastSessionId) {
             openedRef.current = task.id;
-            if (!openSession(res.data.meta.lastSessionId)) setGone(true);
+            openSession(res.data.meta.lastSessionId);
           }
         } else if (!silent) setError(res.error || "加载失败");
         if (!silent) setLoading(false);
@@ -382,7 +361,6 @@ body{--vk-accent:var(--dsw-alias-accent,var(--dsw-alias-state-business-primary))
             style: { cursor: "pointer", fontSize: 11, color: "#e67e22", border: "1px solid currentColor", background: "transparent", borderRadius: 6, padding: "0 6px" }
           }, "解锁") : null
         ),
-        gone ? h("div", { style: { fontSize: 11, color: "#e67e22", marginBottom: 10 } }, "上次推进的会话已不在列表（可能已归档），用「＋ 新对话」继续") : null,
         loading ? h("div", { style: { padding: 20, color: "#999", textAlign: "center", fontSize: 12 } }, "加载中…") : null,
         error ? h("div", { style: { padding: 12, color: "#e74c3c", fontSize: 12 } }, error, h("br"), h("button", { onClick: load, style: { cursor: "pointer", marginTop: 6 } }, "重试")) : null,
         !loading && !error ? FIELDS.filter((f) => f.doc === "meta.status" || f.editable || String(docs[f.doc] || "").trim() !== "").map((f) => h(FieldCard, {
@@ -405,15 +383,15 @@ body{--vk-accent:var(--dsw-alias-accent,var(--dsw-alias-state-business-primary))
       const [resetKey, setResetKey] = react.useState(0);
       const searchRootRef = react.useRef(null);
 
-      // 切走任务 tab 时重置：收起详情/搜索、分组折叠（TaskList remount）。
-      // 放在「切走」这一拍，不放「切回」：切回再收会先闪一下展开态（用户报的「闪一下才收起」）。
+      // 切回任务 tab 时重置：收起详情/搜索、刷新列表、分组折叠（TaskList remount）
       react.useEffect(() => {
-        if (active !== false) return;
+        if (!active) return;
         setSelected(null);
         setCreating(false);
         setSearch("");
         setSearchOpen(false);
         setResetKey((k) => k + 1);
+        loadTasks();
       }, [active]);
 
       // 点击搜索框外部时收起（有搜索词则保留，学习官方行为）
@@ -463,8 +441,8 @@ body{--vk-accent:var(--dsw-alias-accent,var(--dsw-alias-state-business-primary))
       };
 
       return h("div", { style: { position: "relative", height: "100%", display: "flex", flexDirection: "column" } },
-        h("div", { className: "lt_head", style: { padding: "4px 8px", borderBottom: "1px solid var(--dsw-alias-border-l1, #ddd)", display: "flex", alignItems: "center", gap: 5, flex: "none", minHeight: 32, overflow: "hidden" } },
-          h("strong", { className: "lt_head_title", style: { fontSize: 12, flex: "1 1 auto", minWidth: 0, display: searchOpen ? "none" : "block", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" } }, "长期任务 (" + tasks.length + ")"),
+        h("div", { className: "lt-head", style: { padding: "4px 8px", borderBottom: "1px solid var(--dsw-alias-border-l1, #ddd)", display: "flex", alignItems: "center", gap: 5, flex: "none", minHeight: 32, overflow: "hidden" } },
+          h("strong", { className: "lt-head-title", style: { fontSize: 12, flex: "1 1 auto", minWidth: 0, display: searchOpen ? "none" : "block", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" } }, "长期任务 (" + tasks.length + ")"),
           h("div", {
             ref: searchRootRef,
             onClick: () => { if (!searchOpen) setSearchOpen(true); },
@@ -554,24 +532,15 @@ body{--vk-accent:var(--dsw-alias-accent,var(--dsw-alias-state-business-primary))
         if (ws && typeof ws.startSession === "function") ws.startSession();
       };
       const openSession = (sessionId) => {
-        if (!sessionId) return false;
-        const byId = sessionRows();
-        if (byId !== undefined) {
-          const bare = String(sessionId).replace(/^session-/, "");
-          const known = Object.prototype.hasOwnProperty.call(byId, sessionId)
-            || Object.prototype.hasOwnProperty.call(byId, bare)
-            || Object.prototype.hasOwnProperty.call(byId, "session-" + bare);
-          if (!known) return false;
-        }
-        const nav = ctx.get("uiWorkspace");
-        if (nav && typeof nav.openSession === "function") {
-          try { nav.openSession(sessionId); return true; } catch {}
-        }
         const sessions = ctx.get("sessions");
-        if (sessions && typeof sessions.open === "function") {
-          try { sessions.open(sessionId); return true; } catch { return false; }
+        if (!sessions || typeof sessions.open !== "function" || !sessionId) return;
+        try {
+          sessions.open(sessionId);
+        } catch {
+          // 会话不存在（如重启后未加载），fallback 到新建对话
+          const ws = ctx.get("workspaces");
+          if (ws && typeof ws.startSession === "function") ws.startSession();
         }
-        return false;
       };
       // 2026-09-29 修：会话列表快照只有 {ids,byId,phase,projectionsBySession}，没有 current；
       // 旧代码轮询 getSnapshot().current 永远拿到 undefined → 会话开出来了但草稿永不写入。
@@ -632,15 +601,20 @@ body{--vk-accent:var(--dsw-alias-accent,var(--dsw-alias-state-business-primary))
         tick();
       };
             insertStyles(LT_CSS);
-      slots.inject("vk.sidebar.tasks", () => slots.register({
-        name: "vk.sidebar.tasks"
-      }, (props) => (h(TasksView, { ...props, startSession, openSession, prefillNew }))));
+      slots.inject("sidebar.panellist", () => slots.register(
+        { name: "sidebar.panellist", id: "dsh-lt-tasks", order: 30, label: "任务" },
+        (props) => (h(TaskGlyph, props)),
+      ));
+      slots.inject("main", () => slots.register(
+        { name: "main", key: "dsh-lt-tasks" },
+        () => (h(TasksView, { startSession, openSession, prefillNew, active: true })),
+      ));
     }
 
-        // 窄宽自适应：照输入框底行「模型选择胶囊」的容器查询口径——容器越窄越先收起次要文字，始终同行，绝不换行错位；.lt_head / .lt_fhead 各自是查询容器。
-    const LT_CSS = ".lt_head{container-type:inline-size}.lt_fhead{container-type:inline-size}"
-      + "@container (width<=216px){.lt_head_title{display:none}}"
-      + "@container (width<=230px){.lt_edit_text{display:none}}";
+        // 窄宽自适应：照输入框底行「模型选择胶囊」的容器查询口径——容器越窄越先收起次要文字，始终同行，绝不换行错位；.lt-head / .lt-fhead 各自是查询容器。
+    const LT_CSS = ".lt-head{container-type:inline-size}.lt-fhead{container-type:inline-size}"
+      + "@container (width<=216px){.lt-head-title{display:none}}"
+      + "@container (width<=230px){.lt-edit-text{display:none}}";
     function insertStyles(css) {
       try {
         // 先摘掉本插件此前注入的样式表：否则插件热重载后旧规则会留着，改动看不到。

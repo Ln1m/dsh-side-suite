@@ -1,6 +1,6 @@
 # dsh-lan-services
 
-> 本分支是 **vk 版**：只注册 vk 槽，需先装 [dsh-vk-suite](https://github.com/Ln1m/dsh-vk-suite)（契约 + 骨架）。零 vk 版见 [official 分支](https://github.com/Ln1m/dsh-lan-services/tree/official)。
+> 本分支是 **零 vk 版**：只注册官方槽，代码不引用任何 vk 槽，装不装 dsh-vk-suite 都一样。vk 版见 [main 分支](https://github.com/Ln1m/dsh-lan-services/tree/main)。
 
 DSH 局域网服务管理器（左栏面板）：把「复习网站等本地 HTTP 服务」的**网址查看 + 启停开关**收进 DSH 侧栏，换网络后局域网网址自动更新，无需记端口、无需命令行。
 

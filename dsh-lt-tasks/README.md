@@ -1,6 +1,6 @@
 # dsh-lt-tasks
 
-> 本分支是 **vk 版**：只注册 vk 槽，需先装 [dsh-vk-suite](https://github.com/Ln1m/dsh-vk-suite)（契约 + 骨架）。零 vk 版见 [official 分支](https://github.com/Ln1m/dsh-lt-tasks/tree/official)。
+> 本分支是 **零 vk 版**：只注册官方槽，代码不引用任何 vk 槽，装不装 dsh-vk-suite 都一样。vk 版见 [main 分支](https://github.com/Ln1m/dsh-lt-tasks/tree/main)。
 
 多窗口接力推进长期任务的 DeepSeek Harness 插件。
 
@@ -25,7 +25,7 @@
 - **参考资料可增补**：建任务时给 `refs`，之后随时用 `add_refs` 补 / 更新——复制前自动解除旧只读再覆盖；超过 200 个文件或 100 MB 的目录只登记绝对路径，不复制。复制进 `refs/` 的按 Windows 只读属性锁定。
 - **目录索引**：`index.md` 记录产出文件绝对路径 + Markdown 章节，可定位到文档内部；`notes.md` 的参考资料小节记录 `refs/` 清单。
 - **任务完成度**：tasklist 的 checkbox 自动统计完成/总数。
-- **前端视图**：左栏「任务」Tab（`vk.sidebar.tasks` 槽，需先装 dsh-vk-suite），分组折叠列表 + 搜索 + 详情抽屉 + inline 编辑（含参考资料备注与冻结条目数）+ 状态下拉。
+- **前端视图**：左栏任务视图（官方 `sidebar.panellist` 图标 + `main` 中央面板），分组折叠列表 + 搜索 + 详情抽屉 + inline 编辑（含参考资料备注与冻结条目数）+ 状态下拉。
 - **任务↔对话关联**：推进时记录对话 session，点任务详情自动打开对应对话。
 - **输入框预填**：点「＋」新建任务 / 详情页「＋新对话」时，自动在对话输入框预填引导语（`请帮我新建一个长期任务：` / `推进长期任务 xxx`），不自动发送。
 - **自成长**：完成时生成归档建议，确认后写入知识库 / skill。
